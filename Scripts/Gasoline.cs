@@ -110,16 +110,5 @@ namespace katmod
         {
             "assets/data/goops/napalmgoopthatworks.asset"
         };
-
-        public static List<string> necessary = new List<string>
-        {
-            "psm:gasoline"
-        };
-
-        public static List<string> optional = new List<string>
-        {
-            "psm:warrior's_syringe",
-            "psm:boiling_fungus"
-        };
     }
 }
