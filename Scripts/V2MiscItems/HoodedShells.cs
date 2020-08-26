@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,6 @@ namespace katmod
 {
     class HoodedShells : PassiveItem
     {
-        public float damageToDo;
         public static void Init()
         {
             string itemName = "Hooded Shells";
@@ -30,36 +29,31 @@ namespace katmod
             try
             {
                 Projectile projectile = sourceBeam.projectile;
-                projectile.OnHitEnemy = (Action<Projectile, SpeculativeRigidbody, bool>)Delegate.Combine(projectile.OnHitEnemy, new Action<Projectile, SpeculativeRigidbody, bool>(this.OnHitEnemy));
+                projectile.specRigidbody.OnPreRigidbodyCollision += OnHitEnemy;
             }
             catch (Exception ex)
             {
-                global::ETGModConsole.Log(ex.Message, false);
+                ETGModConsole.Log(ex.Message, false);
             }
         }
         private void PostProcessProjectile(Projectile sourceProjectile, float effectChanceScalar)
         {
             try
             {
-                sourceProjectile.OnHitEnemy = (Action<Projectile, SpeculativeRigidbody, bool>)Delegate.Combine(sourceProjectile.OnHitEnemy, new Action<Projectile, SpeculativeRigidbody, bool>(this.OnHitEnemy));
+                sourceProjectile.specRigidbody.OnPreRigidbodyCollision += OnHitEnemy;
             }
             catch (Exception ex)
             {
-                global::ETGModConsole.Log(ex.Message, false);
+                ETGModConsole.Log(ex.Message, false);
             }
-            damageToDo = sourceProjectile.baseData.damage;
         }
-        private void OnHitEnemy(Projectile arg1, SpeculativeRigidbody arg2, bool arg3)
+        private void OnHitEnemy(SpeculativeRigidbody myRigidbody, PixelCollider myPixelCollider, SpeculativeRigidbody otherRigidbody, PixelCollider otherPixelCollider)
         {
-            if (arg2 != null && arg2.aiActor != null && Owner != null)
+            if (otherRigidbody != null && otherRigidbody.aiActor != null && myRigidbody != null && myRigidbody.projectile && otherRigidbody.aiActor.healthHaver)
             {
-                float hpercent = (arg2.aiActor.healthHaver.GetMaxHealth() / 100);
-                if (hpercent > 0.5f) { hpercent = 0.5f; }
-                damageToDo *= hpercent;
-                //if (arg2.aiActor.healthHaver.IsBoss == false)
-                {
-                    arg2.aiActor.healthHaver.ApplyDamage(damageToDo, Vector2.zero, "Erasure", CoreDamageTypes.None, DamageCategory.Normal, false, null, false);
-                }
+                float hpercent = otherRigidbody.aiActor.healthHaver.GetMaxHealth() / 600;
+                if (hpercent > 0.6f) { hpercent = 0.6f; }
+                myRigidbody.projectile.baseData.damage *= 1 + hpercent;
             }
         }
 
