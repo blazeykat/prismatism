@@ -12,8 +12,6 @@ namespace katmod
 
 	class CatSnack : PassiveItem
 	{
-		public static int ID;
-
 		public static void Init()
 		{
 			string name = "Cat Snack";
@@ -32,15 +30,8 @@ namespace katmod
 				"barrel"
 			};
 			CustomSynergies.Add("feesh", mandatoryConsoleIDs, null, true);
-			List<string> sharks = new List<string>
-			{
-				"psm:cat_snack",
-				"compressed_air_tank"
-			};
-			//CustomSynergies.Add("Shark Bait", sharks);
 			item.SetupUnlockOnFlag(GungeonFlags.FRIFLE_REWARD_SHARK_GUN, true);
 			item.PlaceItemInAmmonomiconAfterItemById(301);
-			ID = item.PickupObjectId;
 		}
 
 		private void PostProcessProjectile(Projectile projectile, float chungo)
