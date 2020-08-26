@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +11,6 @@ namespace katmod
 
 	class SaplingBullets : PassiveItem
 	{
-		public static int ID;
-
 		public static void Init()
 		{
 			string name = "Sapling Bullets";
@@ -33,7 +31,6 @@ namespace katmod
 			CustomSynergies.Add("Leaf orb 2", mandatoryConsoleIDs, null, true);
 			item.PlaceItemInAmmonomiconAfterItemById(640);
 			//CustomSynergies.Add("Mahoguny sapling", theList);
-			ID = item.PickupObjectId;
 		}
 
 		private void PostProcessProjectile(Projectile projectile, float Chance)
@@ -65,7 +62,7 @@ namespace katmod
 		private IEnumerator StartCooldown()
 		{
 			yield return new WaitForSeconds(1f);
-			this.CoolAsIce = false;
+			this.CoolAsIce = true;
 			yield break;
 		}
 
@@ -90,12 +87,6 @@ namespace katmod
 			base.OnDestroy();
         }
 
-        private bool CoolAsIce = false;
-
-		public static List<string> theList = new List<string>
-		{
-			"psm:sapling_bullets",
-			"mahoguny"
-		};
+        private bool CoolAsIce = true;
 	}
 }
