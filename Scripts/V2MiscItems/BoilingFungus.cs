@@ -24,7 +24,6 @@ namespace katmod
 			item.sprite.IsPerpendicular = true;
 			item.AddToSubShop(ItemBuilder.ShopType.Goopton, 1f);
 			item.PlaceItemInAmmonomiconAfterItemById(258);
-			//CustomSynergies.Add("Water vapour", Gasoline.necessary, Gasoline.optional);
 		}
 
 		public override void Pickup(PlayerController player)
