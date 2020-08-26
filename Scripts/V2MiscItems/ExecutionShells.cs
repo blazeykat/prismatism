@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +10,6 @@ namespace katmod
 {
     class ExecutionShells : PassiveItem
     {
-        public float damageToDo;
         public static void Init()
         {
             string itemName = "Execution Shells";
@@ -19,7 +18,7 @@ namespace katmod
             ExecutionShells item = obj.AddComponent<ExecutionShells>();
             ItemBuilder.AddSpriteToObject(itemName, resourceName, obj);
             string shortDesc = "First Strike IV";
-            string longDesc = "Doubles damage against enemies with more than 50% HP.\n\nUsed by the Executioners of the gungeon, to kill traitorous bullets.";
+            string longDesc = "Doubles damage against enemies with max HP.\n\nUsed by the Executioners of the gungeon, to kill traitorous bullets.";
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
             item.quality = ItemQuality.A;
             item.SetupUnlockOnStat(TrackedStats.TIMES_CLEARED_GUNGEON, DungeonPrerequisite.PrerequisiteOperation.GREATER_THAN, 75);
@@ -30,33 +29,32 @@ namespace katmod
             try
             {
                 Projectile projectile = sourceBeam.projectile;
-                projectile.OnHitEnemy = (Action<Projectile, SpeculativeRigidbody, bool>)Delegate.Combine(projectile.OnHitEnemy, new Action<Projectile, SpeculativeRigidbody, bool>(this.OnHitEnemy));
+                projectile.specRigidbody.OnPreRigidbodyCollision += OnHitEnemy;
             }
             catch (Exception ex)
             {
-                global::ETGModConsole.Log(ex.Message, false);
+                ETGModConsole.Log(ex.Message, false);
             }
         }
         private void PostProcessProjectile(Projectile sourceProjectile, float effectChanceScalar)
         {
             try
             {
-                sourceProjectile.OnHitEnemy = (Action<Projectile, SpeculativeRigidbody, bool>)Delegate.Combine(sourceProjectile.OnHitEnemy, new Action<Projectile, SpeculativeRigidbody, bool>(this.OnHitEnemy));
+                sourceProjectile.specRigidbody.OnPreRigidbodyCollision += OnHitEnemy;
             }
             catch (Exception ex)
             {
-                global::ETGModConsole.Log(ex.Message, false);
+                ETGModConsole.Log(ex.Message, false);
             }
-            this.damageToDo = sourceProjectile.baseData.damage;
         }
-        private void OnHitEnemy(Projectile arg1, SpeculativeRigidbody arg2, bool arg3)
+        private void OnHitEnemy(SpeculativeRigidbody myRigidbody, PixelCollider myPixelCollider, SpeculativeRigidbody otherRigidbody, PixelCollider otherPixelCollider)
         {
-            if (arg2 != null && arg2.aiActor != null && Owner != null)
+            if (otherRigidbody != null && otherRigidbody.aiActor != null && myRigidbody != null && myRigidbody.projectile && otherRigidbody.aiActor.healthHaver)
             {
-                float hpercent = arg2.aiActor.healthHaver.GetCurrentHealthPercentage();
-                if (hpercent > 0.5f)
+                float hpercent = otherRigidbody.aiActor.healthHaver.GetCurrentHealthPercentage();
+                if (hpercent == 1f)
                 {
-                    arg2.aiActor.healthHaver.ApplyDamage(damageToDo, Vector2.zero, "Erasure", CoreDamageTypes.None, DamageCategory.Normal, false, null, false);
+                    myRigidbody.projectile.baseData.damage *= 2;
                 }
             }
         }
