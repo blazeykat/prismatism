@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,82 +19,49 @@ namespace katmod
 			GameObject gameObject = new GameObject(name);
 			CatSnack item = gameObject.AddComponent<CatSnack>();
 			ItemBuilder.AddSpriteToObject(name, resourcePath, gameObject);
-			string shortDesc = "Channel your inner fish";
-			string longDesc = "Has a chance to shoot a fish along with every shot.\n\n...and I followed the sound of music...";
+			string shortDesc = "Fishy Fishy";
+			string longDesc = "Has a chance to shoot a fish along with every shot.\n\n...And I followed the sound of music...";
 			ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Accuracy, 1.25f, StatModifier.ModifyMethod.MULTIPLICATIVE);
 			ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
-			item.quality = PickupObject.ItemQuality.A;
-			List<string> mandatoryConsoleIDs = new List<string>
-			{
-				"psm:cat_snack",
-				"barrel"
-			};
-			CustomSynergies.Add("feesh", mandatoryConsoleIDs, null, true);
-			item.SetupUnlockOnFlag(GungeonFlags.FRIFLE_REWARD_SHARK_GUN, true);
+			item.quality = PickupObject.ItemQuality.B;
 			item.PlaceItemInAmmonomiconAfterItemById(301);
 		}
 
 		private void PostProcessProjectile(Projectile projectile, float chungo)
 		{
-			PlayerController player = base.Owner;
-			float Chance = 0.8f;
-			if (player.HasGun(7))
-			{
-				Chance -= 0.05f;
-			}
-			if (Utilities.BasicRandom(player, Chance, 50) && !CoolAsIce)
+			if (Utilities.BasicRandom(base.Owner, (base.Owner.HasGun(7)) ? 0.7f : 0.9f, 50) && !CoolAsIce)
 			{
 				CoolAsIce = true;
 				StartCoroutine(StartCooldown());
-				if (Utilities.UncoolRandom(0.99f) && !SharkMFs)
-				{
-					SharkMFs = true;
-					StartCoroutine(SharkCooldown());
-					player.HandleChargeProjectile(25f, (player.HasGun(359)) ? 110 : 90f, 359);
-				} else
-				{
-					player.HandleProjectile(20f, (player.HasGun(7)) ? 15 : 10, 7);
-				}
+				projectile.AdjustPlayerProjectileTint(Color.blue, 5);
+				projectile.OnDestruction += Wave;
 			}
 		}
 
+        private void Wave(Projectile obj)
+        {
+			int wackyRandomiser = UnityEngine.Random.Range(0, 90);
+			for (int i = 0; i < 4; i++)
+            {
+				obj.sprite.HandleProjectileAimedFromDifferentPosition(Owner, 20, 10, 7, wackyRandomiser += i * 90);
+            }
+        }
 
-		private void PostProcessBeamChanceTick(BeamController beamController)
+        private void PostProcessBeamChanceTick(BeamController beamController)
 		{
-			PlayerController player = base.Owner;
-			float Chance = 0.9f;
-			if (player.HasGun(7))
-			{
-				Chance -= 0.05f;
-			}
-			if (Utilities.BasicRandom(player, Chance, 100) && !CoolAsIce)
+			if (Utilities.BasicRandom(base.Owner, (base.Owner.HasGun(7)) ? 0.7f : 0.9f, 50) && !CoolAsIce)
 			{
 				CoolAsIce = true;
 				StartCoroutine(StartCooldown());
-				if (Utilities.UncoolRandom(0.97f) && !SharkMFs)
-				{
-					SharkMFs = true;
-					StartCoroutine(SharkCooldown());
-					player.HandleChargeProjectile(25f, (player.HasGun(359)) ? 110 : 95f, 359);
-				}
-				else
-				{
-					player.HandleProjectile(20f, (player.HasGun(7)) ? 20 : 10, 7);
-				}
+				projectile.AdjustPlayerProjectileTint(Color.blue, 5);
+				projectile.OnDestruction += Wave;
 			}
 		}
 
 		private IEnumerator StartCooldown()
-        {
-			yield return new WaitForSeconds(0.5f);
-			CatSnack.CoolAsIce = false;
-			yield break;
-        }
-
-		private IEnumerator SharkCooldown()
 		{
-			yield return new WaitForSeconds(5);
-			CatSnack.SharkMFs = false;
+			yield return new WaitForSeconds(1f);
+			CatSnack.CoolAsIce = false;
 			yield break;
 		}
 
@@ -112,14 +79,14 @@ namespace katmod
 			return base.Drop(player);
 		}
 
-        protected override void OnDestroy()
-        {
+		protected override void OnDestroy()
+		{
 			Owner.PostProcessProjectile -= PostProcessProjectile;
 			Owner.PostProcessBeamChanceTick -= PostProcessBeamChanceTick;
-            base.OnDestroy();
-        }
+			base.OnDestroy();
+		}
 
-        static bool CoolAsIce = false;
+		static bool CoolAsIce = false;
 
 		static bool SharkMFs = false;
 	}
