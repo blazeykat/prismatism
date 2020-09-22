@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,18 +24,7 @@ namespace katmod
             item.SetupUnlockOnFlag(GungeonFlags.BOSSKILLED_DEMONWALL, true);
             item.PlaceItemInAmmonomiconAfterItemById(323);
         }
-        private void PostProcessBeam(BeamController sourceBeam)
-        {
-            try
-            {
-                Projectile projectile = sourceBeam.projectile;
-                projectile.specRigidbody.OnPreRigidbodyCollision += OnHitEnemy;
-            }
-            catch (Exception ex)
-            {
-                ETGModConsole.Log(ex.Message, false);
-            }
-        }
+
         private void PostProcessProjectile(Projectile sourceProjectile, float effectChanceScalar)
         {
             try
@@ -61,12 +50,10 @@ namespace katmod
         {
             base.Pickup(player);
             player.PostProcessProjectile += this.PostProcessProjectile;
-            player.PostProcessBeam += this.PostProcessBeam;
         }
         public override DebrisObject Drop(PlayerController player)
         {
             player.PostProcessProjectile -= this.PostProcessProjectile;
-            player.PostProcessBeam -= this.PostProcessBeam;
             return base.Drop(player);
         }
 

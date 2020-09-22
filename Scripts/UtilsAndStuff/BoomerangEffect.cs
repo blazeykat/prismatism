@@ -71,7 +71,7 @@ public class BoomerangEffect : MonoBehaviour
             }*/
 			if ((m_projectile.Speed <= 0.1) && (m_projectile.Speed >= -0.1f))
             {
-				StartCoroutine(waitaminute());
+				StartCoroutine(HandleCooldown());
             }
 		}
 		catch (Exception errex)
@@ -80,7 +80,7 @@ public class BoomerangEffect : MonoBehaviour
 		}
 	}
 
-	public IEnumerator waitaminute()
+	public IEnumerator HandleCooldown()
     {
 		yield return new WaitForSeconds(m_range);
 		if ((m_projectile.Speed <= 0.1) && (m_projectile.Speed >= -0.1f))
@@ -89,13 +89,6 @@ public class BoomerangEffect : MonoBehaviour
 		}
 		yield break;
     }
-	private IEnumerator StartCooldown()
-	{
-		yield return new WaitForSeconds(m_range);
-		this.m_projectile.Speed -= m_speed;
-		cooldown = true;
-		yield break;
-	}
 
 	public bool IsSynergyContingent;
 
@@ -124,8 +117,6 @@ public class BoomerangEffect : MonoBehaviour
 	public float m_range;
 
 	public float m_damage;
-
-	private bool cooldown;
 
 	public float StartingDamage;
 }

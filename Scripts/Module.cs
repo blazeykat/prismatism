@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 using ItemAPI;
 using Dungeonator;
@@ -59,7 +59,16 @@ namespace katmod
                 StoneAmmolet.Init();
 
                 BeeGun.Add();
-                
+                //Ak_01.Add(); 
+                /*BloodyCannon.Add();
+                WindStaff.Add();
+                RedAndWhite.Add();
+                RoyalShotgun.Add();
+                Shotstool.Add();
+                RescueRanger.Add();
+                NuclearShotgun.Add();
+                NuclearAmmoPickup.Init();*/
+
                 PetrifyingMirror.Init();
                 EnchantedTome.Init();
                 YellowKey.Init();
@@ -87,16 +96,70 @@ namespace katmod
                 ThunderRounds.Init();
                 ToxicHoneycomb.Init();
 
+                /*BoomerangBullets.Init();
+                GhoulBullets.Init();
+                OilyBoots.Init();
+                ShadyChest.Init();
+                CandyBag.Init();
+                MinerHelmet.Init();
+                Depthmeter.Init();
+                Smore.Init();
+                KeyDoubler.Init();
+                BlankDoubler.Init();
+                CursedCandle.Init();
+                MyNameIsYoshikageKira.Init();
+                MythrilBullets.Init();
+                Charcoal.Init();
+                CodexUmbra.Init();
+                BloodyDice.Init();
+                StarFruit.Init();
+                HeartyKey.Init();
+                DeadlyKnife.Init();
+                Overloader.Init();
+                RangeCrystal.Init();
+                Sushi.Init();
+                AmmoEnhancer.Init();
+                BanditHat.Init();
+                Ushanka.Init();
+                BigBoom.Init();
+                BloodyLockpick.Init();
+                Seashell.Init();
+
+                BlueExplosive.Init();
+                RedExplosive.Init();
+                WhiteExplosive.Init();
+                Drone.Init();*/
+
                 LandOfTheSynergies.AddSynergies();
             }
             catch (Exception ex)
             {
                 itemsLoad = $"{ex}";
-            }               
+            }
+            /*try
+            {
+
+                GungeonInit.Init();
+                GooptonShrine.Add();
+                LowPriestShrine.Add();
+                GooptonIcon.Init();
+                LowPriestIcon.Init();
+            } catch (Exception E)
+            {
+                shrinesLoad = $"{E}";
+            }*/
+            /*try
+            {
+                BlueBubbler.Init();
+            } catch (Exception e)
+            {
+                enemiesLoad = $"{e}";
+            }*/
             Log($"{MOD_NAME} v{VERSION} has started.", TEXT_COLOR);
             Log("Checklist:", TEXT_COLOR);
             Log($"Items: {itemsLoad}", TEXT_COLOR);
             Log("bonbo's world", TEXT_COLOR);
+            //Log($"Enemies: {enemiesLoad}", TEXT_COLOR);
         }
 
 

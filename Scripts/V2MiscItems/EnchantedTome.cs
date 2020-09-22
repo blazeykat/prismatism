@@ -31,12 +31,9 @@ namespace katmod
 		private void OnEnemyDamaged(float damage, bool fatal, HealthHaver enemy)
 		{
 			PlayerController user = base.LastOwner;
-			float coolness = user.stats.GetStatValue(PlayerStats.StatType.Coolness);
-			float chance = 0.98f - (coolness / 50);
-			bool flag = UnityEngine.Random.value > chance;
 			if (fatal)
 			{
-				if (flag)
+				if (Utilities.UncoolRandom(0.985f))
 				{
 					if (enemy.specRigidbody != null && enemy.aiActor != null && base.LastOwner != null && enemy != null)
 					{
@@ -49,11 +46,13 @@ namespace katmod
 								LootEngine.SpawnItem(PickupObjectDatabase.GetById(565).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, true, false);
 								break;
 							case 3:
-								StatModifier damageboost = new StatModifier();
-								damageboost.statToBoost = PlayerStats.StatType.Damage;
-								damageboost.amount = 0.1f;
-								damageboost.modifyType = StatModifier.ModifyMethod.ADDITIVE;
-								user.ownerlessStatModifiers.Add(damageboost);
+                                StatModifier damageboost = new StatModifier
+                                {
+                                    statToBoost = PlayerStats.StatType.Damage,
+                                    amount = 0.1f,
+                                    modifyType = StatModifier.ModifyMethod.ADDITIVE
+                                };
+                                user.ownerlessStatModifiers.Add(damageboost);
 								user.stats.RecalculateStats(user, true, false);
 								AkSoundEngine.PostEvent("Play_OBJ_power_up_01", base.gameObject);
 								break;
@@ -112,72 +111,70 @@ namespace katmod
 			{
 				default:
 					ETGModConsole.Log("oh crap.2");
-					StatModifier damageboost4 = new StatModifier();
-					damageboost4.statToBoost = PlayerStats.StatType.Damage;
-					damageboost4.amount = 0.3f;
-					damageboost4.modifyType = StatModifier.ModifyMethod.ADDITIVE;
-					user.ownerlessStatModifiers.Add(damageboost4);
+                    StatModifier damageboost4 = new StatModifier
+                    {
+                        statToBoost = PlayerStats.StatType.Damage,
+                        amount = 0.3f,
+                        modifyType = StatModifier.ModifyMethod.ADDITIVE
+                    };
+                    user.ownerlessStatModifiers.Add(damageboost4);
 					user.stats.RecalculateStats(user, true, false);
 					error = true;
 					break;
 				case 1:
-					StatModifier damagebossboost = new StatModifier();
-					damagebossboost.statToBoost = PlayerStats.StatType.DamageToBosses;
-					damagebossboost.amount = 0.5f;
-					damagebossboost.modifyType = StatModifier.ModifyMethod.ADDITIVE;
-					user.ownerlessStatModifiers.Add(damagebossboost);
+                    StatModifier damagebossboost = new StatModifier
+                    {
+                        statToBoost = PlayerStats.StatType.DamageToBosses,
+                        amount = 0.5f,
+                        modifyType = StatModifier.ModifyMethod.ADDITIVE
+                    };
+                    user.ownerlessStatModifiers.Add(damagebossboost);
 					user.stats.RecalculateStats(user, true, false);
 					break;
 				case 2:
-					StatModifier damageboost2 = new StatModifier();
-					damageboost2.statToBoost = PlayerStats.StatType.Damage;
-					damageboost2.amount = 1.25f;
-					damageboost2.modifyType = StatModifier.ModifyMethod.MULTIPLICATIVE;
-					user.ownerlessStatModifiers.Add(damageboost2);
+                    StatModifier damageboost2 = new StatModifier
+                    {
+                        statToBoost = PlayerStats.StatType.Damage,
+                        amount = 1.25f,
+                        modifyType = StatModifier.ModifyMethod.MULTIPLICATIVE
+                    };
+                    user.ownerlessStatModifiers.Add(damageboost2);
 					user.stats.RecalculateStats(user, true, false);
 					break;
 				case 3:
-					StatModifier moneyboost = new StatModifier();
-					moneyboost.statToBoost = PlayerStats.StatType.MoneyMultiplierFromEnemies;
-					moneyboost.amount = .5f;
-					moneyboost.modifyType = StatModifier.ModifyMethod.ADDITIVE;
+					StatModifier moneyboost = new StatModifier { statToBoost = PlayerStats.StatType.MoneyMultiplierFromEnemies, amount = .5f, modifyType = StatModifier.ModifyMethod.ADDITIVE };
 					user.ownerlessStatModifiers.Add(moneyboost);
 					user.stats.RecalculateStats(user, true, false);
 					break;
 				case 4:
-					StatModifier priceboost = new StatModifier();
-					priceboost.statToBoost = PlayerStats.StatType.GlobalPriceMultiplier;
-					priceboost.amount = .5f;
-					priceboost.modifyType = StatModifier.ModifyMethod.ADDITIVE;
+					StatModifier priceboost = new StatModifier { statToBoost = PlayerStats.StatType.GlobalPriceMultiplier, amount = .5f, modifyType = StatModifier.ModifyMethod.ADDITIVE };
 					user.ownerlessStatModifiers.Add(priceboost);
 					user.stats.RecalculateStats(user, true, false);
 					break;
 				case 5:
-					StatModifier damageboost3 = new StatModifier();
-					damageboost3.statToBoost = PlayerStats.StatType.Damage;
-					damageboost3.amount = 0.5f;
-					damageboost3.modifyType = StatModifier.ModifyMethod.ADDITIVE;
-					user.ownerlessStatModifiers.Add(damageboost3);
-					StatModifier cursed = new StatModifier();
-					cursed.statToBoost = PlayerStats.StatType.Damage;
-					cursed.amount = 1.5f;
-					cursed.modifyType = StatModifier.ModifyMethod.ADDITIVE;
-					user.ownerlessStatModifiers.Add(cursed);
+                    StatModifier damageboost3 = new StatModifier
+                    {
+                        statToBoost = PlayerStats.StatType.Damage,
+                        amount = 0.5f,
+                        modifyType = StatModifier.ModifyMethod.ADDITIVE
+                    };
+                    user.ownerlessStatModifiers.Add(damageboost3);
+                    StatModifier cursed = new StatModifier
+                    {
+                        statToBoost = PlayerStats.StatType.Damage,
+                        amount = 1.5f,
+                        modifyType = StatModifier.ModifyMethod.ADDITIVE
+                    };
+                    user.ownerlessStatModifiers.Add(cursed);
 					user.stats.RecalculateStats(user, true, false);
 					break;
 				case 6:
-					StatModifier bonk = new StatModifier();
-					bonk.statToBoost = PlayerStats.StatType.KnockbackMultiplier;
-					bonk.amount = 5f;
-					bonk.modifyType = StatModifier.ModifyMethod.ADDITIVE;
+					StatModifier bonk = new StatModifier { statToBoost = PlayerStats.StatType.KnockbackMultiplier, amount = 5f, modifyType = StatModifier.ModifyMethod.ADDITIVE };
 					user.ownerlessStatModifiers.Add(bonk);
 					user.stats.RecalculateStats(user, true, false);
 					break;
 				case 7:
-					StatModifier swag = new StatModifier();
-					swag.statToBoost = PlayerStats.StatType.Coolness;
-					swag.amount = 7f;
-					swag.modifyType = StatModifier.ModifyMethod.ADDITIVE;
+					StatModifier swag = new StatModifier { statToBoost = PlayerStats.StatType.Coolness, amount = 5f, modifyType = StatModifier.ModifyMethod.ADDITIVE };
 					user.ownerlessStatModifiers.Add(swag);
 					user.stats.RecalculateStats(user, true, false);
 					break;
@@ -187,10 +184,6 @@ namespace katmod
 				ETGModConsole.Log("you found an error, report this to blazeykat");
 			}
 			pick3 = rand.Next(1, 5);
-			if (pick3 == 2)
-			{
-				ETGModConsole.Log("you did it1");
-			}
 			user.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(user.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
 		}
 		public override bool CanBeUsed(PlayerController user)

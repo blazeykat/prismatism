@@ -23,8 +23,6 @@ namespace katmod
 			ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
 			item.quality = PickupObject.ItemQuality.C;
 			item.PlaceItemInAmmonomiconAfterItemById(138);
-			//CustomSynergies.Add("Bubeenic", neces, poisons);
-			//CustomSynergies.Add("bzzzzzzzzzzzzzzz", neces, bees);
 		}
 
 		private void OnPlayerHit(PlayerController player)
@@ -63,26 +61,6 @@ namespace katmod
 		public List<GameActorEffect> poison = new List<GameActorEffect>() 
 		{
 			Gungeon.Game.Items["irradiated_lead"].GetComponent<BulletStatusEffectItem>().HealthModifierEffect
-		};
-
-		public static List<string> bees = new List<string>
-		{
-			"jar_of_bees",
-			"bee_hive",
-			"honeycomb"
-		};
-
-		public static List<string> neces = new List<string>
-		{
-			"psm:toxic_honeycomb"
-		};
-
-		public static List<string> poisons = new List<string>
-		{
-			"plague_pistol",
-			"the_membrane",
-			"poxcannon",
-			"psm:plague_bullets"
 		};
 	}
 }

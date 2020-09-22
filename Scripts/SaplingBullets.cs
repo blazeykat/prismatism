@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,6 +11,8 @@ namespace katmod
 
 	class SaplingBullets : PassiveItem
 	{
+		public static int ID;
+
 		public static void Init()
 		{
 			string name = "Sapling Bullets";
@@ -23,14 +25,8 @@ namespace katmod
 			ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Accuracy, 1.25f, StatModifier.ModifyMethod.MULTIPLICATIVE);
 			ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
 			item.quality = PickupObject.ItemQuality.B;
-			List<string> mandatoryConsoleIDs = new List<string>
-			{
-				"psm:sapling_bullets",
-				"life_orb"
-			};
-			CustomSynergies.Add("Leaf orb 2", mandatoryConsoleIDs, null, true);
 			item.PlaceItemInAmmonomiconAfterItemById(640);
-			//CustomSynergies.Add("Mahoguny sapling", theList);
+			ID = item.PickupObjectId;
 		}
 
 		private void PostProcessProjectile(Projectile projectile, float Chance)

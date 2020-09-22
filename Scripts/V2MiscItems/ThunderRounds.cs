@@ -25,18 +25,6 @@ namespace katmod
 			item.quality = PickupObject.ItemQuality.A;
 			item.PlaceItemInAmmonomiconAfterItemById(298);
 			ThunderRounds.ID = item.PickupObjectId;
-			List<string> mandatoryConsoleIDs = new List<string>
-			{
-				"psm:thunder_shells",
-				"psm:electric_shells"
-			};
-			CustomSynergies.Add("The nuns commence incanting", mandatoryConsoleIDs, null, true);
-			List<string> mandatoryConsoleIDs2 = new List<string>
-			{
-				"psm:thunder_shells",
-				"thunderclap"
-			};
-			CustomSynergies.Add("Clap Clap", mandatoryConsoleIDs2, null, true);
 		}
 		private void PostProcessProjectile(Projectile sourceProjectile, float effectChanceScalar)
 		{
@@ -63,11 +51,9 @@ namespace katmod
 			try
 			{
 				base.Update();
-				bool flag = this.m_pickedUp && this.m_owner != null;
-				if (flag)
+				if (this.m_pickedUp && this.m_owner != null)
 				{
-
-					for (int ind = 0; ind < ActiveProjectiles.Count; ind++)
+					if (ActiveProjectiles[0])
 					{
 						bool flag2 = this.m_owner.CurrentRoom != null && this.m_owner.CurrentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All) != null;
 						if (flag2)
@@ -76,7 +62,7 @@ namespace katmod
 							{
 								if (aiactor.GetComponent<ThunderRounds.ZappedEnemyBehaviour>() == null) 
 								{
-									if (Vector2.Distance(aiactor.CenterPosition, (this.zapperMainProjectile == null) ? ActiveProjectiles[ind].transform.position : this.zapperMainProjectile.transform.position) < chainGlitchPreventinator)
+									if (Vector2.Distance(aiactor.CenterPosition, (this.zapperMainProjectile == null) ? ActiveProjectiles[0].transform.position : this.zapperMainProjectile.transform.position) < chainGlitchPreventinator)
 									{
 										GameObject gameObject = SpawnManager.SpawnProjectile((PickupObjectDatabase.GetById(38) as Gun).DefaultModule.projectiles[0].gameObject, aiactor.sprite.WorldCenter, Quaternion.identity, true);
 										Projectile component = gameObject.GetComponent<Projectile>();
@@ -113,7 +99,7 @@ namespace katmod
 												orAddComponent.UsesDispersalParticles = false;
 											}
 
-											chainGlitchPreventinator += complexProjectileModifier.ChainLightningMaxLinkDistance;
+											chainGlitchPreventinator += Vector2.Distance(aiactor.CenterPosition, (this.zapperMainProjectile == null) ? ActiveProjectiles[0].transform.position : this.zapperMainProjectile.transform.position);
 										}
 										LightningProjectiles.Add(component);
 										aiactor.gameObject.AddComponent<ThunderRounds.ZappedEnemyBehaviour>();
@@ -124,7 +110,7 @@ namespace katmod
 						bool flag6 = this.zapperMainProjectile == null;
 						if (flag6)
 						{
-							GameObject gameObject2 = SpawnManager.SpawnProjectile((PickupObjectDatabase.GetById(38) as Gun).DefaultModule.projectiles[ind].gameObject, this.m_owner.sprite.WorldCenter, Quaternion.identity, true);
+							GameObject gameObject2 = SpawnManager.SpawnProjectile((PickupObjectDatabase.GetById(38) as Gun).DefaultModule.projectiles[0].gameObject, this.m_owner.sprite.WorldCenter, Quaternion.identity, true);
 							Projectile component2 = gameObject2.GetComponent<Projectile>();
 							bool flag7 = component2 != null;
 							if (flag7)
@@ -137,7 +123,7 @@ namespace katmod
 								component2.baseData.speed = 0f;
 								component2.Owner = this.m_owner;
 								component2.Shooter = this.m_owner.specRigidbody;
-								component2.gameObject.AddComponent<ThunderRounds.ZapperMainProjectileBehaviour>().manuallyAssignedPlayer = this.ActiveProjectiles[ind];
+								component2.gameObject.AddComponent<ThunderRounds.ZapperMainProjectileBehaviour>().manuallyAssignedPlayer = this.ActiveProjectiles[0];
 								ComplexProjectileModifier complexProjectileModifier2 = PickupObjectDatabase.GetById(298) as ComplexProjectileModifier;
 								ChainLightningModifier orAddComponent2 = gameObject2.gameObject.GetOrAddComponent<ChainLightningModifier>();
 								orAddComponent2.LinkVFXPrefab = complexProjectileModifier2.ChainLightningVFX;
@@ -217,7 +203,7 @@ namespace katmod
 
 		public List<Projectile> ActiveProjectiles = new List<Projectile>();
 
-		private List<Projectile> LightningProjectiles = new List<Projectile>();
+		private readonly List<Projectile> LightningProjectiles = new List<Projectile>();
 
 		public class ZapperProjectileBehaviour : BraveBehaviour
 		{

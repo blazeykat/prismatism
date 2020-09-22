@@ -11,7 +11,7 @@ namespace katmod
 	{
 		public static void Init()
 		{
-			string name = "Raider's Axe";
+			string name = "Raiders Axe";
 			string resourcePath = "katmod/Resources/V2MiscItems/raidersaxe.png";
 			GameObject gameObject = new GameObject(name);
 			RaidersAxe item = gameObject.AddComponent<RaidersAxe>();
@@ -19,8 +19,7 @@ namespace katmod
 			string shortDesc = "Viking Waraxe";
 			string longDesc = "Increases damage by 0.00055 for each enemy killed.\n\nNothing lasts for ever after all.\nI'll love you, till the ocean takes us all.";
 			item.SetupItem(shortDesc, longDesc, "psm");
-			item.quality = PickupObject.ItemQuality.S;
-			item.sprite.IsPerpendicular = true;
+			item.quality = PickupObject.ItemQuality.A;
 			item.PlaceItemInAmmonomiconAfterItemById(165);
 		}
 

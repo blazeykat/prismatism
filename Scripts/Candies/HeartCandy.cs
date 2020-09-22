@@ -34,6 +34,10 @@ namespace katmod
 		public override bool CanBeUsed(PlayerController user)
 		{
 			bool result = user.healthHaver.GetCurrentHealth() != user.healthHaver.GetMaxHealth();
+			if (user.characterIdentity == PlayableCharacters.Robot)
+            {
+				return true;
+            }
 			return result;
 		}
 	}

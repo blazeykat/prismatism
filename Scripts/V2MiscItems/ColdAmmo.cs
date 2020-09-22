@@ -22,19 +22,13 @@ namespace katmod
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
             item.quality = ItemQuality.A;
             item.PlaceItemInAmmonomiconAfterItemById(170);
-            List<string> consoles = new List<string>
-            {
-                "psm:cool_ammo",
-                "ice_cube"
-            };
-            //CustomSynergies.Add("Cold as Ice", consoles);
         }
 
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
             player.OnEnteredCombat += this.OnEnterRoom;
-            player.GunChanged += this.ggBool;
+            player.GunChanged += this.GgBool;
         }
 
         private void OnEnterRoom()
@@ -42,7 +36,7 @@ namespace katmod
             ammoCount = 0;
         }
 
-        private void ggBool (Gun g1, Gun g2, bool yes)
+        private void GgBool (Gun g1, Gun g2, bool yes)
         {
             StopCoroutine(Holdup());
         }
@@ -83,14 +77,14 @@ namespace katmod
         public override DebrisObject Drop(PlayerController player)
         {
             player.OnEnteredCombat -= this.OnEnterRoom;
-            player.GunChanged -= this.ggBool;
+            player.GunChanged -= this.GgBool;
             return base.Drop(player);
         }
 
         protected override void OnDestroy()
         {
             Owner.OnEnteredCombat += this.OnEnterRoom;
-            Owner.GunChanged += this.ggBool;
+            Owner.GunChanged += this.GgBool;
             base.OnDestroy();
         }
 

@@ -19,7 +19,7 @@ namespace katmod
             string shortDesc = "Hungry boy";
             string longDesc = "Spits out a skull upon killing an enemy.\n\nJeremy consumes the corpse of his enemies, digesting everything but the skull. Jeremy doesn't like skulls.";
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
-            item.quality = PickupObject.ItemQuality.B;
+            item.quality = PickupObject.ItemQuality.C;
             item.SetupUnlockOnStat(TrackedStats.TIMES_CLEARED_SEWERS, DungeonPrerequisite.PrerequisiteOperation.GREATER_THAN, 2);
             item.PlaceItemInAmmonomiconAfterItemById(301);
         }

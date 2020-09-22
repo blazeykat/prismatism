@@ -28,7 +28,6 @@ namespace katmod
 			item.OrbitalPrefab = PurpleGuonStone.orbitalPrefab;
 			item.Identifier = IounStoneOrbitalItem.IounStoneIdentifier.GENERIC;
 			item.PlaceItemInAmmonomiconAfterItemById(260);
-			//CustomSynergies.Add("Blurpler guon stone", basle, basele);
 		}
 		public static void BuildPrefab()
 		{
@@ -59,7 +58,6 @@ namespace katmod
 				playerOrbital2.orbitDegreesPerSecond = 90f;
 			}
 			player.OnReceivedDamage += this.DoLiquidEffect;
-			base.Invoke("breakThis", 4);
 			base.Pickup(player);
 		}
 		private IEnumerator HandleShield(PlayerController user)
@@ -124,20 +122,8 @@ namespace katmod
 
 		public static PlayerOrbital orbitalPrefab;
 
-		private float duration = 5f;
+		private readonly float duration = 5f;
 
 		private bool m_usedOverrideMaterial;
-
-		private static List<string> basle = new List<string>
-		{
-			"psm:blurple_guon_stone"
-		};
-
-		private static List<string> basele = new List<string>
-		{
-			"+1_bullets",
-			"gundromeda_strain",
-			"amulet_of_the_pit_lord"
-		};
 	}
 }

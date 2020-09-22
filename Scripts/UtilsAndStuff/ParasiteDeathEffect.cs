@@ -23,7 +23,7 @@ namespace katmod
 					{
 						component.Owner = frogger;
 						component.Shooter = frogger.specRigidbody;
-						component.baseData.speed = UnityEngine.Random.Range(6, 8);
+						component.baseData.speed = UnityEngine.Random.Range(6, 9);
 						component.baseData.damage = 12;
 						PierceProjModifier pp = component.gameObject.AddComponent<PierceProjModifier>();
 						pp.penetration = 1;

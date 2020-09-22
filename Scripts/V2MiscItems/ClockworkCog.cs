@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace katmod
 {
-	internal class ClockworkCog : PassiveItem
+	class ClockworkCog : PassiveItem
 	{
 		public static void Init()
 		{

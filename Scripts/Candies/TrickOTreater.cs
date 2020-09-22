@@ -33,18 +33,14 @@ namespace katmod
 
         private void OnEnemyDamaged(float damage, bool fatal, HealthHaver enemy)
         {
-            PlayerController player = base.Owner;
-            float coolness = player.stats.GetStatValue(PlayerStats.StatType.Coolness);
-            bool flag2 = player.HasPickupID(313);
-            float chance = 0.97f - (coolness / 100);
-            bool flag = UnityEngine.Random.value > chance;
+            bool flag2 = Owner.HasPickupID(313);
             if (fatal)
             {
-                if (Utilities.BasicRandom(base.Owner, 0.97f, 100))
+                if (Utilities.BasicRandom(base.Owner, 0.94f, 100))
                 {
                     if (flag2)
                     {
-                        LootEngine.SpawnItem(PickupObjectDatabase.GetById(RedCandy.MonsterCandyID).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, false, false);
+                        LootEngine.SpawnItem(PickupObjectDatabase.GetById(MonsterCandy.MonsterCandyID).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, false, false);
                     } else {
                     System.Random rando = new System.Random();
                         switch (rando.Next(1, 7))
@@ -63,7 +59,7 @@ namespace katmod
                                 LootEngine.SpawnItem(PickupObjectDatabase.GetById(KeyCandy.GreyCandyID).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, false, false);
                                 break;
                             case 5:
-                                LootEngine.SpawnItem(PickupObjectDatabase.GetById(MonsterCandy.RedCandyID).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, false, false);
+                                LootEngine.SpawnItem(PickupObjectDatabase.GetById(RedCandy.RedCandyID).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, false, false);
                                 break;
                             case 6:
                                 LootEngine.SpawnItem(PickupObjectDatabase.GetById(HeartCandy.HeartCandyID).gameObject, enemy.specRigidbody.UnitCenter, Vector2.zero, 1f, false, false, false);
@@ -77,11 +73,11 @@ namespace katmod
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
-            player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Combine(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+            player.OnAnyEnemyReceivedDamage += OnEnemyDamaged;
         }
         public override DebrisObject Drop(PlayerController player)
         {
-            player.OnAnyEnemyReceivedDamage = (Action<float, bool, HealthHaver>)Delegate.Remove(player.OnAnyEnemyReceivedDamage, new Action<float, bool, HealthHaver>(this.OnEnemyDamaged));
+            player.OnAnyEnemyReceivedDamage -= OnEnemyDamaged;
             return base.Drop(player);
         }
 

@@ -71,7 +71,7 @@ namespace katmod
             base.OnDestroy();
         }
 
-        private DamageTypeModifier m_fireImmunity = new DamageTypeModifier()
+        private readonly DamageTypeModifier m_fireImmunity = new DamageTypeModifier()
         {
             damageMultiplier = 0,
             damageType = CoreDamageTypes.Fire
@@ -81,7 +81,7 @@ namespace katmod
 
         private static List<GoopDefinition> goopDefs;
 
-        private static string[] goops = new string[]
+        private static readonly string[] goops = new string[]
         {
             "assets/data/goops/napalmgoopthatworks.asset"
         };

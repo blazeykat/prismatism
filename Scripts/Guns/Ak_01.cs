@@ -9,7 +9,6 @@ namespace Items
 	{
 		public static void Add()
 		{
-			//this gun is unimplemented because im actually stupid
 			Gun gun = global::ETGMod.Databases.Items.NewGun("Ak-01", "ak01");
 			Gungeon.Game.Items.Rename("outdated_gun_mods:ak-01", "psm:ak-01");
 			gun.gameObject.AddComponent<Ak_01>();

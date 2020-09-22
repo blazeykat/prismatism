@@ -22,12 +22,6 @@ namespace katmod
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.Curse, 1f, StatModifier.ModifyMethod.ADDITIVE);
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
             item.quality = PickupObject.ItemQuality.B;
-            List<string> mandatoryConsoleIDs = new List<string>
-            {
-                "psm:petrifying_mirror",
-                "glass_cannon"
-            };
-            CustomSynergies.Add("Mirror Cannon", mandatoryConsoleIDs, null, true);
             item.SetupUnlockOnFlag(GungeonFlags.BOSSKILLED_MEDUZI, true);
             item.PlaceItemInAmmonomiconAfterItemById(102);
         }
@@ -57,14 +51,18 @@ namespace katmod
         }
         private void OnEnemyDamaged(Projectile arg1, SpeculativeRigidbody arg2, bool arg3)
         {
-            if (base.Owner.HasGun(540))
+            if (arg2 && arg2.healthHaver && arg2.aiActor)
             {
-                arg2.aiActor.gameActor.ApplyEffect(EnemyDebuff, 1f, null);
-            } else if (arg2.aiActor != arg2.healthHaver.IsBoss)
-            {
-                if (Utilities.BasicRandom(base.Owner, 0.7f, 50f))
+                if (base.Owner.HasGun(540))
                 {
                     arg2.aiActor.gameActor.ApplyEffect(EnemyDebuff, 1f, null);
+                }
+                else if (!arg2.healthHaver.IsBoss)
+                {
+                    if (Utilities.BasicRandom(base.Owner, 0.7f, 50f))
+                    {
+                        arg2.aiActor.gameActor.ApplyEffect(EnemyDebuff, 1f, null);
+                    }
                 }
             }
         }

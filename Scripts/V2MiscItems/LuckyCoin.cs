@@ -12,13 +12,13 @@ namespace katmod
     {
         public static void Init()
         {
-            string name = "Luckful Coin";
+            string name = "Enchanted Coin";
             string resourcePath = "katmod/Resources/V2MiscItems/luckycoin.png";
             GameObject gameObject = new GameObject(name);
             LuckyCoin item = gameObject.AddComponent<LuckyCoin>();
             ItemBuilder.AddSpriteToObject(name, resourcePath, gameObject);
             string shortDesc = "50/50?";
-            string longDesc = "Enemies have a chance to drop casings on damage.\n\nLucky coin was taken by NN's items so it is now luckful.";
+            string longDesc = "Enemies have a chance to drop casings on damage.\n\nUsed by pirate captain's, to make a profit from pillaging.";
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
             item.quality = PickupObject.ItemQuality.A;
             item.SetupUnlockOnFlag(GungeonFlags.ACHIEVEMENT_BIGGEST_WALLET, true);
@@ -51,9 +51,9 @@ namespace katmod
         {
             if (arg2 != null && arg2.aiActor != null && Owner != null)
             {
-                if (Utilities.UncoolRandom(0.985f))
+                if (Utilities.UncoolRandom(0.94f))
                 {
-                    LootEngine.SpawnItem(PickupObjectDatabase.GetById(68).gameObject,arg2.UnitCenter, Vector2.zero, 1f, false, true, false);
+                    LootEngine.SpawnItem(PickupObjectDatabase.GetById(68).gameObject, arg2.UnitCenter, Vector2.zero, 1f, false, true, false);
                 }
             }
         }

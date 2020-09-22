@@ -22,12 +22,6 @@ namespace katmod
 			string longDesc = "Mimics drop bonus items.\n\nPreviously in the gungeon, many a skilled gungeoneer would feel the chest to see if it was real wood or not. You could still do this now, but you probably would want to keep your fingers.";
 			ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
 			item.quality = PickupObject.ItemQuality.A;
-			List<string> mandatoryConsoleIDs2 = new List<string>
-			{
-				"psm:mimic_skin_cape",
-				"mimic_tooth_necklace"
-			};
-			CustomSynergies.Add("Mimic Suit", mandatoryConsoleIDs2, null, true);
 			item.SetupUnlockOnFlag(GungeonFlags.FRIFLE_REWARD_MIMIC_TOOTH_NECKLACE, true);
 			item.PlaceItemInAmmonomiconAfterItemById(293);
 			item.AddPassiveStatModifier(PlayerStats.StatType.Curse, 2f, StatModifier.ModifyMethod.ADDITIVE);

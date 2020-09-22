@@ -21,7 +21,7 @@ namespace katmod
 			string shortDesc = "Utter Garbage";
 			string longDesc = "Shoots 8 lead maiden projectiles upon taking damage.\n\nNow *you* can be the game ruiner!";
 			ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
-			item.quality = PickupObject.ItemQuality.A;
+			item.quality = PickupObject.ItemQuality.B;
 			item.PlaceItemInAmmonomiconAfterItemById(564);
 		}
 

@@ -49,7 +49,7 @@ namespace katmod
                 global::ETGModConsole.Log(ex.Message, false);
             }
         }
-        private void OnHitEnemy(Projectile arg1, SpeculativeRigidbody arg2, bool arg3)
+        private void OnHitEnemy(Projectile projectile, SpeculativeRigidbody enemy, bool fatal)
         {
 			ComplexProjectileModifier complexProjectileModifier = PickupObjectDatabase.GetById(298) as ComplexProjectileModifier;
 			float chainGlitchPreventinator = complexProjectileModifier.ChainLightningMaxLinkDistance;
@@ -61,7 +61,7 @@ namespace katmod
 				{
 					foreach (AIActor aiactor in this.m_owner.CurrentRoom.GetActiveEnemies(RoomHandler.ActiveEnemyType.All))
 					{
-						if (Vector2.Distance(aiactor.CenterPosition, arg2.UnitCenter) < chainGlitchPreventinator) 
+						if (Vector2.Distance(aiactor.CenterPosition, enemy.UnitCenter) < chainGlitchPreventinator) 
 						{
 							GameObject gameObject = SpawnManager.SpawnProjectile((PickupObjectDatabase.GetById(38) as Gun).DefaultModule.projectiles[0].gameObject, aiactor.sprite.WorldCenter, Quaternion.identity, true);
 							Projectile component = gameObject.GetComponent<Projectile>();
@@ -96,51 +96,12 @@ namespace katmod
 								{
 									orAddComponent.UsesDispersalParticles = false;
 								}
-								chainGlitchPreventinator += complexProjectileModifier.ChainLightningMaxLinkDistance;
-							}
+
+                                chainGlitchPreventinator += Vector2.Distance(aiactor.CenterPosition, enemy.UnitCenter);
+                            }
 						}
 					}
 				}
-				/*bool flag6 = this.zapperMainProjectile == null;
-				if (flag6)
-				{
-					GameObject gameObject2 = SpawnManager.SpawnProjectile((PickupObjectDatabase.GetById(38) as Gun).DefaultModule.projectiles[0].gameObject, this.m_owner.sprite.WorldCenter, Quaternion.identity, true);
-					Projectile component2 = gameObject2.GetComponent<Projectile>();
-					bool flag7 = component2 != null;
-					if (flag7)
-					{
-						component2.sprite.renderer.enabled = false;
-						component2.specRigidbody.CollideWithOthers = false;
-						component2.specRigidbody.CollideWithTileMap = false;
-						component2.baseData.damage = 0f;
-						component2.baseData.range = float.MaxValue;
-						component2.baseData.speed = 0f;
-						component2.Owner = this.m_owner;
-						component2.Shooter = this.m_owner.specRigidbody;
-						ComplexProjectileModifier complexProjectileModifier2 = PickupObjectDatabase.GetById(298) as ComplexProjectileModifier;
-						ChainLightningModifier orAddComponent2 = gameObject2.gameObject.GetOrAddComponent<ChainLightningModifier>();
-						orAddComponent2.LinkVFXPrefab = complexProjectileModifier2.ChainLightningVFX;
-						orAddComponent2.damageTypes = complexProjectileModifier2.ChainLightningDamageTypes;
-						orAddComponent2.maximumLinkDistance = complexProjectileModifier2.ChainLightningMaxLinkDistance;
-						orAddComponent2.damagePerHit = complexProjectileModifier2.ChainLightningDamagePerHit;
-						orAddComponent2.damageCooldown = complexProjectileModifier2.ChainLightningDamageCooldown;
-						StartCoroutine(DelProjectel(orAddComponent2.damageCooldown, component2));
-						bool flag8 = complexProjectileModifier2.ChainLightningDispersalParticles != null;
-						if (flag8)
-						{
-							orAddComponent2.UsesDispersalParticles = true;
-							orAddComponent2.DispersalParticleSystemPrefab = complexProjectileModifier2.ChainLightningDispersalParticles;
-							orAddComponent2.DispersalDensity = complexProjectileModifier2.ChainLightningDispersalDensity;
-							orAddComponent2.DispersalMinCoherency = complexProjectileModifier2.ChainLightningDispersalMinCoherence;
-							orAddComponent2.DispersalMaxCoherency = complexProjectileModifier2.ChainLightningDispersalMaxCoherence;
-						}
-						else
-						{
-							orAddComponent2.UsesDispersalParticles = false;
-						}
-					}
-					this.zapperMainProjectile = component2;
-				}*/
 			}
 		}
 
@@ -166,9 +127,7 @@ namespace katmod
             return debrisObject;
         }
 
-		private Projectile zapperMainProjectile = null;
-
-		public class ZappedEnemyBehaviour : BraveBehaviour
+        public class ZappedEnemyBehaviour : BraveBehaviour
 		{
 		}
 

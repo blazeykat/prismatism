@@ -49,7 +49,7 @@ namespace katmod
         }
         private void OnHitEnemy(Projectile arg1, SpeculativeRigidbody arg2, bool arg3)
         {
-            if (arg2 != null && arg2.aiActor != null && Owner != null)
+            if (arg2 != null && arg2.aiActor && arg2.healthHaver != null && Owner != null)
             {
                 arg2.aiActor.ApplyEffect(EnemyDebuff, 1f, null);
             }

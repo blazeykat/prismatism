@@ -153,8 +153,6 @@ namespace katmod
 
 		public float flameMoveChance;
 
-		public bool IsGreenFire;
-
 		private float m_particleTimer;
 
 		private float m_emberCounter;

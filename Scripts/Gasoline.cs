@@ -40,12 +40,6 @@ namespace katmod
                 goopDefinition.name = text.Replace("assets/data/goops/", "").Replace(".asset", "");
                 Gasoline.goopDefs.Add(goopDefinition);
             }
-            List<string> mandatoryConsoleIDs = new List<string>
-            {
-                "psm:gasoline",
-                "ring_of_fire_resistance"
-            };
-            CustomSynergies.Add("Fireproof", mandatoryConsoleIDs, null, true);
         }
 
         private void OnEnemyKilled(PlayerController player, HealthHaver enemy)
@@ -61,28 +55,22 @@ namespace katmod
                 else
                 {
                     WingsItem component = byId.GetComponent<WingsItem>();
-                    goopDefinition = ((component != null) ? component.RollGoop : null);
+                    goopDefinition = (component?.RollGoop);
                 }
-                GoopDefinition goopDef = goopDefinition;
                 float duration = 0.75f;
-                DeadlyDeadlyGoopManager.GetGoopManagerForGoopType(Gasoline.goopDefs[0]).TimedAddGoopCircle(enemy.specRigidbody.UnitCenter, player.HasMTGConsoleID("psm:warrior's_syringe") || player.HasMTGConsoleID("psm:boiling_fungus") ? 5f : 3f, duration, false);
+                DeadlyDeadlyGoopManager.GetGoopManagerForGoopType(Gasoline.goopDefs[0]).TimedAddGoopCircle(enemy.specRigidbody.UnitCenter, player.HasMTGConsoleID("psm:warrior's_syringe") || player.HasMTGConsoleID("psm:toxic_fungus") ? 5f : 3f, duration, false);
             }
         }
-        public GameActorFireEffect EnemyDebuff = new GameActorFireEffect
-        {
-            DamagePerSecondToEnemies = 2,
-            AppliesTint = true,
-            TintColor = UnityEngine.Color.red,
-            FlameVfx = default,
-            duration = 20,
-        };
+        
         public override void Pickup(PlayerController player)
         {
             base.Pickup(player);
             player.OnKilledEnemyContext += this.OnEnemyKilled;
-            this.m_fireImmunity = new DamageTypeModifier();
-            this.m_fireImmunity.damageMultiplier = 0f;
-            this.m_fireImmunity.damageType = CoreDamageTypes.Fire;
+            this.m_fireImmunity = new DamageTypeModifier
+            {
+                damageMultiplier = 0f,
+                damageType = CoreDamageTypes.Fire
+            };
             player.healthHaver.damageTypeModifiers.Add(this.m_fireImmunity);
         }
         public override DebrisObject Drop(PlayerController player)
@@ -106,7 +94,7 @@ namespace katmod
 
         public static List<GoopDefinition> goopDefs;
 
-        private static string[] goops = new string[]
+        private static readonly string[] goops = new string[]
         {
             "assets/data/goops/napalmgoopthatworks.asset"
         };

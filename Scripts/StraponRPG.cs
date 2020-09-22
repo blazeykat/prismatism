@@ -22,7 +22,6 @@ namespace katmod
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
             item.quality = PickupObject.ItemQuality.B;
             item.PlaceItemInAmmonomiconAfterItemById(438);
-           // CustomSynergies.Add("Rocket King", necessary, optional);
         }
         private void WhenReload(PlayerController player, Gun playerGun)
         {
@@ -65,16 +64,5 @@ namespace katmod
         }
 
         static bool CoolAsIce = false;
-
-        public static List<string> necessary = new List<string>
-        {
-            "psm:stick_on_rocket_launcher"
-        };
-
-        public static List<string> optional = new List<string>
-        {
-            "yari_launcher",
-            "com4nd0"
-        };
     }
 }

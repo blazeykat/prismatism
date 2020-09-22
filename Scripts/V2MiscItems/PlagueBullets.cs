@@ -22,14 +22,8 @@ namespace katmod
 			string shortDesc = "Green Death";
 			string longDesc = "Has a chance to shoot a bouncing plague bullet on fire.\n\nTheir cure is most efficient.";
 			ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
-			item.quality = PickupObject.ItemQuality.B;
+			item.quality = PickupObject.ItemQuality.C;
 			item.PlaceItemInAmmonomiconAfterItemById(640);
-			List<string> mandatoryConsoleIDs = new List<string>
-			{
-				"psm:plague_bullets",
-				"plague_pistol"
-			};
-			CustomSynergies.Add("Thank god for me.", mandatoryConsoleIDs, null, true);
 		}
 
 		private void PostProcessProjectile(Projectile projectile, float Chance)

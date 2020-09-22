@@ -19,7 +19,7 @@ namespace katmod
             string shortDesc = "Pop Pop";
             string longDesc = "The raw money-power gives you a chance to shoot multiple projectiles at once.\n\nWorth 100 Hegemony credits, or 39947.93 dogcoin.";
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
-            item.quality = PickupObject.ItemQuality.S;
+            item.quality = PickupObject.ItemQuality.A;
             ItemBuilder.AddPassiveStatModifier(item, PlayerStats.StatType.ExtremeShadowBulletChance, 20f, StatModifier.ModifyMethod.ADDITIVE);
             item.SetupUnlockOnFlag(GungeonFlags.ACHIEVEMENT_BIGGEST_WALLET, true);
             item.PlaceItemInAmmonomiconAfterItemById(490);

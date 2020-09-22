@@ -19,15 +19,9 @@ namespace katmod
 			string shortDesc = "Fearless Warrior.";
 			string longDesc = "Increases damage for each enemy in the room.";
 			uten.SetupItem(shortDesc, longDesc, "psm");
-			uten.quality = PickupObject.ItemQuality.B;
+			uten.quality = PickupObject.ItemQuality.C;
 			uten.sprite.IsPerpendicular = true;
 			uten.PlaceItemInAmmonomiconAfterItemById(451);
-			List<string> funny = new List<string>
-			{
-				"psm:medal_of_bravery",
-				"galactic_medal_of_valor"
-			};
-			CustomSynergies.Add("True Bravery", funny);
 		}
 
 		protected override void Update()

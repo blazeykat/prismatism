@@ -20,7 +20,7 @@ namespace katmod
             string shortDesc = "Bullet Roll";
             string longDesc = "Synthesizes a random homing bullet upon rolling over enemy bullets.";
             ItemBuilder.SetupItem(item, shortDesc, longDesc, "psm");
-            item.quality = PickupObject.ItemQuality.B;
+            item.quality = PickupObject.ItemQuality.C;
             item.PlaceItemInAmmonomiconAfterItemById(172);
         }
 
