@@ -35,7 +35,7 @@ namespace katmod
             string shortDesc = "Lucky Shot";
             string longDesc = "Some ammo, in a box!";
             item.SetupItem(shortDesc, longDesc);
-            item.quality = PickupObject.ItemQuality.SPECIAL;
+            item.quality = PickupObject.ItemQuality.EXCLUDED;
             NuclearAmmoPickup.id = item.PickupObjectId;
         }
         
@@ -47,12 +47,15 @@ namespace katmod
                 NuclearPlayerController heSucks = player.GetComponent<NuclearPlayerController>();
                 if (heSucks.Shells + 8 > 55)
                 {
+                    BoxOTools.Notify("AMMO BOX", "Max Shells", "katmod/Resources/V3MiscItems/ammocrate");
                     heSucks.Shells = 55;
                 } else
                 {
+                    BoxOTools.Notify("AMMO BOX", "+8 Shells", "katmod/Resources/V3MiscItems/ammocrate");
                     heSucks.Shells += 8;
                 }
             }
+            player.BloopItemAboveHead(this.sprite);
             AkSoundEngine.PostEvent("Play_OBJ_ammo_pickup_01", base.gameObject);
             UnityEngine.Object.Destroy(base.gameObject);
         }

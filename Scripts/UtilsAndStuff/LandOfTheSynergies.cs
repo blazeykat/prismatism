@@ -1,4 +1,5 @@
 ﻿using ItemAPI;
+using JetBrains.Annotations;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,7 +7,7 @@ using System.Text;
 
 namespace katmod
 {
-    class LandOfTheSynergies
+    static class LandOfTheSynergies
     {
         public static void AddSynergies()
         {
@@ -156,7 +157,75 @@ namespace katmod
             };
             CustomSynergies.Add("keysight", keysight, null, true);
 
-            /*List<string> twentyInch = new List<string>
+            List<string> featherBase = new List<string>
+            {
+                "psm:parrot's_feather"
+            };
+            List<string> ofAFeather = new List<string>
+            {
+                "owl",
+                "wax_wings",
+                "weird_egg"
+            };
+            List<string> flockTogether = new List<string>
+            {
+                "charm_horn",
+                "charming_rounds",
+                "yellow_chamber",
+                "battle_standard"
+            };
+            CustomSynergies.Add("Birds of a Feather", featherBase, ofAFeather);
+            CustomSynergies.Add("Flock Together", featherBase, flockTogether);
+
+            List<string> rockman = new List<string>
+            {
+                "psm:stone_sword",
+                "psm:stone_ammolet"
+            };
+            CustomSynergies.Add("Withered away", rockman);
+
+            List<string> bookBase = new List<string>
+            {
+                "psm:enchanted_book"
+            };
+            List<string> Scholar = new List<string>
+            {
+                "book_of_chest_anatomy",
+                "psm:cookbook"
+            };
+            CustomSynergies.Add("Book Worm", bookBase, Scholar);
+            List<string> Reanimate = new List<string>
+            {
+                "psm:bronze_key",
+                "shelleton_key"
+            };
+            CustomSynergies.Add("REANIMATE", Reanimate);
+            List<string> smoreBase = new List<string>
+            {
+                "psm:s'more"
+            };
+            List<string> campfireStory = new List<string>
+            {
+                "psm:gasoline",
+                "psm:shoddy_lighter",
+                "hot_lead"
+            };
+            CustomSynergies.Add("Campfire Story", smoreBase, campfireStory);
+            List<string> Mines = new List<string>
+            {
+                "psm:depthometer",
+                "psm:miner's_helmet"
+            };
+            CustomSynergies.Add("Into the Depths", Mines);
+            List<string> retro = new List<string>
+            {
+                "psm:sweeper",
+                "psm:retro_shotgun",
+                "sunglasses"
+            };
+            CustomSynergies.Add(":retroswept:", retro);
+
+            List<string> twentyInch = new List<string>
             {
                 "psm:fatal_knife"
             };
@@ -172,7 +241,7 @@ namespace katmod
                 "psm:sushi",
                 "psm:cat_snack"
             };
-            CustomSynergies.Add("Fish Can Roll", sushiFish);*/
+            CustomSynergies.Add("Fish Can Roll", sushiFish);
         }
     }
 }

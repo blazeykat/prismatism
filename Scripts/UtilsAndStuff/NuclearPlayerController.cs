@@ -35,7 +35,7 @@ namespace katmod
         {
             if (healed.specRigidbody && healed)
             {
-                if (Utilities.UncoolRandom(0.8f))
+                if (BoxOTools.BasicRandom(0.8f))
                 {
                     LootEngine.SpawnItem(PickupObjectDatabase.GetById(NuclearAmmoPickup.id).gameObject, healed.specRigidbody.UnitCenter, Vector2.zero, 1f, true, true);
                 }

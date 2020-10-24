@@ -47,6 +47,14 @@ namespace katmod
 
         private bool m_hasBeenPickedUp;
 
-        public PlayerController storedPlayer;
+        private PlayerController storedPlayer;
+
+        public PlayerController StoredPlayer
+        {
+            get
+            {
+                return storedPlayer;
+            }
+        }
     }
 }

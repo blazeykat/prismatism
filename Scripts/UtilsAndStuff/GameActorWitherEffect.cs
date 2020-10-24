@@ -15,6 +15,7 @@ namespace katmod
 			this.flameBuffer = new Vector2(0.0625f, 0.0625f);
 			this.flameFpsVariation = 0.5f;
 			this.flameMoveChance = 0.2f;
+			effectIdentifier = "wither";
 		}
 		public override void EffectTick(GameActor actor, RuntimeGameActorEffectData effectData)
 		{
@@ -76,7 +77,6 @@ namespace katmod
 				GameActorWitherEffect.DestroyFlames(effectData);
 			};
 			actor.healthHaver.OnPreDeath += effectData.OnActorPreDeath;
-			if (this.FlameVfx != null && this.FlameVfx.Count > 0)
 			{
 				if (effectData.vfxObjects == null)
 				{
@@ -142,8 +142,6 @@ namespace katmod
 		public const float BossMaxResistance = 0.75f;
 
 		public const float BossResistanceDelta = 0.025f;
-
-		public List<GameObject> FlameVfx;
 
 		public int flameNumPerSquareUnit;
 
