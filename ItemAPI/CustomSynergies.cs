@@ -16,7 +16,7 @@ namespace ItemAPI
 
         public static AdvancedSynergyEntry Add(string name, List<string> mandatoryConsoleIDs, List<string> optionalConsoleIDs = null, bool ignoreLichEyeBullets = true)
         {
-            if (mandatoryConsoleIDs == null || mandatoryConsoleIDs.Count == 0) { Tools.PrintError($"Synergy {name} has no mandatory items/guns."); return null; }
+            if (mandatoryConsoleIDs == null || mandatoryConsoleIDs.Count == 0) { ETGModConsole.Log($"Synergy {name} has no mandatory items/guns."); return null; }
             List<int>
                 itemIDs = new List<int>(),
                 gunIDs = new List<int>(),

@@ -6,6 +6,7 @@ using System.Text;
 
 using UnityEngine;
 using MonoMod.RuntimeDetour;
+using Brave.BulletScript;
 using DirectionType = DirectionalAnimation.DirectionType;
 using FlipType = DirectionalAnimation.FlipType;
 
@@ -62,7 +63,7 @@ namespace ItemAPI
         {
             if (CompanionBuilder.companionDictionary.ContainsKey(guid))
             {
-                Tools.PrintError("CompanionBuilder: Tried to create two companion prefabs with the same GUID!");
+                ETGModConsole.Log("CompanionBuilder: Tried to create two companion prefabs with the same GUID!");
                 return null;
             }
             var prefab = GameObject.Instantiate(behaviorSpeculatorPrefab);
@@ -74,6 +75,7 @@ namespace ItemAPI
             sprite.SetUpSpeculativeRigidbody(hitboxOffset, hitBoxSize).CollideWithOthers = false;
             prefab.AddComponent<tk2dSpriteAnimator>();
             prefab.AddComponent<AIAnimator>();
+            
 
 
             //setup health haver
@@ -118,12 +120,12 @@ namespace ItemAPI
         }
 
         public enum AnimationType { Move, Idle, Fidget, Flight, Hit, Talk, Other }
-        public static tk2dSpriteAnimationClip AddAnimation(this GameObject obj, string name, string spriteDirectory, int fps, 
+        public static tk2dSpriteAnimationClip AddAnimation(this GameObject obj, string name, string spriteDirectory, int fps,
             AnimationType type, DirectionType directionType = DirectionType.None, FlipType flipType = FlipType.None)
         {
             AIAnimator aiAnimator = obj.GetOrAddComponent<AIAnimator>();
             DirectionalAnimation animation = aiAnimator.GetDirectionalAnimation(name, directionType, type);
-            if(animation == null)
+            if (animation == null)
             {
                 animation = new DirectionalAnimation()
                 {
@@ -155,7 +157,7 @@ namespace ItemAPI
                     indices.Add(SpriteBuilder.AddSpriteToCollection(resources[i], collection));
                 }
             }
-            tk2dSpriteAnimationClip clip = SpriteBuilder.AddAnimation(aiAnimator.spriteAnimator, collection, indices, name, tk2dSpriteAnimationClip.WrapMode.Loop);
+            tk2dSpriteAnimationClip clip = SpriteBuilder.AddAnimation(aiAnimator.spriteAnimator, collection, indices, name, tk2dSpriteAnimationClip.WrapMode.Once);
             clip.fps = fps;
             return clip;
         }

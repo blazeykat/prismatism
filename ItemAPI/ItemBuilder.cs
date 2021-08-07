@@ -8,6 +8,7 @@ using System.Reflection;
 using System.IO;
 using System.Collections;
 using MonoMod.RuntimeDetour;
+using ItemAPI;
 
 namespace ItemAPI
 {
@@ -33,7 +34,6 @@ namespace ItemAPI
         {
             FakePrefabHooks.Init();
             CompanionBuilder.Init();
-            Tools.Init();
             EnemyBuilder.Init();
             LoadShopTables();
         }
@@ -56,16 +56,19 @@ namespace ItemAPI
         /// </summary>
         public static GenericLootTable LoadShopTable(string assetName)
         {
-            return Tools.sharedAuto1.LoadAsset<GenericLootTable>(assetName);
+            return ResourceManager.LoadAssetBundle("shared_auto_001").LoadAsset<GenericLootTable>(assetName);
         }
 
         /// <summary>
         /// Adds a tk2dSprite component to an object and adds that sprite to the 
         /// ammonomicon for later use. If obj is null, returns a new GameObject with the sprite
         /// </summary>
-        public static GameObject AddSpriteToObject(string name, string resourcePath = "katmod/Resources/WyrmSet/spogrechamp", GameObject obj = null)
+        public static GameObject AddSpriteToObject(string name, string resourcePath, GameObject obj = null, bool v = false)
         {
             GameObject spriteObject = SpriteBuilder.SpriteFromResource(resourcePath, obj);
+            FakePrefab.MarkAsFakePrefab(spriteObject);
+            obj.SetActive(false);
+
             spriteObject.name = name;
             return spriteObject;
         }
@@ -91,11 +94,8 @@ namespace ItemAPI
                 if (item is PlayerItem)
                     (item as PlayerItem).consumable = false;
                 Gungeon.Game.Items.Add(idPool + ":" + item.name.ToLower().Replace(" ", "_"), item);
+                AddedItems.Add(item);
                 ETGMod.Databases.Items.Add(item);
-
-                FakePrefab.MarkAsFakePrefab(item.gameObject);
-                item.gameObject.SetActive(false);
-                item.RemovePeskyQuestionmark();
             }
             catch (Exception e)
             {
@@ -103,12 +103,10 @@ namespace ItemAPI
                 ETGModConsole.Log(e.StackTrace);
             }
         }
-        public static void RemovePeskyQuestionmark(this PickupObject item)
-        {
-            EncounterDatabase.GetEntry(item.encounterTrackable.EncounterGuid).journalData.SuppressKnownState = false;
-        }
 
-        public static void AddToSubShop(this PickupObject po, ShopType type, float weight)
+        public static List<PickupObject> AddedItems = new List<PickupObject>();
+
+        public static void AddToSubShop(this PickupObject po, ShopType type, float weight = 1)
         {
             shopInventories[type].defaultItemDrops.Add(new WeightedGameObject()
             {

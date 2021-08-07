@@ -7,11 +7,13 @@ using SGUI;
 using UnityEngine;
 using System.Reflection;
 using System.Diagnostics;
+using ItemAPI;
 
 namespace ItemAPI
 {
     public static class ResourceExtractor
     {
+        private static string nameSpace = "Frost And Gunfire";
         private static string spritesDirectory = Path.Combine(ETGMod.ResourcesDirectory, "sprites");
         /// <summary>
         /// Converts all png's in a folder to a list of Texture2D objects
@@ -20,7 +22,7 @@ namespace ItemAPI
         {
             if (!Directory.Exists(directoryPath))
             {
-                Tools.PrintError(directoryPath + " not found.");
+                ETGModConsole.Log(directoryPath + " not found.");
                 return null;
             }
 
@@ -44,13 +46,33 @@ namespace ItemAPI
             string filePath = Path.Combine(spritesDirectory, fileName + extension);
             if (!File.Exists(filePath))
             {
-                Tools.PrintError(filePath + " not found.");
+                ETGModConsole.Log(filePath + " not found.");
                 return null;
             }
             Texture2D texture = BytesToTexture(File.ReadAllBytes(filePath), fileName);
             return texture;
         }
 
+        public static List<string> BuildStringListFromEmbeddedResource(string filePath)
+        {
+            List<string> m_CachedList = new List<string>();
+
+            if (string.IsNullOrEmpty(filePath)) { return m_CachedList; }
+
+            filePath = filePath.Replace("/", ".");
+            filePath = filePath.Replace("\\", ".");
+            string text = BytesToString(ExtractEmbeddedResource(string.Format("{0}.", nameSpace) + filePath));
+
+            if (string.IsNullOrEmpty(text)) { return m_CachedList; }
+
+            string[] m_CachedStringArray = text.Split(new char[] { '\n' });
+
+            if (m_CachedStringArray == null | m_CachedStringArray.Length <= 0) { return m_CachedList; }
+
+            foreach (string textString in m_CachedStringArray) { m_CachedList.Add(textString); }
+
+            return m_CachedList;
+        }
         /// <summary>
         /// Retuns a list of sprite collections in the sprite folder
         /// </summary>
@@ -144,7 +166,7 @@ namespace ItemAPI
             byte[] bytes = ExtractEmbeddedResource(file);
             if (bytes == null)
             {
-                Tools.PrintError("No bytes found in " + file);
+                ETGModConsole.Log("No bytes found in " + file);
                 return null;
             }
             Texture2D texture = new Texture2D(1, 1, TextureFormat.RGBA32, false);

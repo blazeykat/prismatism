@@ -11,7 +11,7 @@ namespace ItemAPI
     public static class SpriteBuilder
     {
         private static tk2dSpriteCollectionData itemCollection = PickupObjectDatabase.GetByEncounterName("singularity").sprite.Collection;
-        private static tk2dSpriteCollectionData ammonomiconCollection = AmmonomiconController.ForceInstance.EncounterIconCollection;
+        public static tk2dSpriteCollectionData ammonomiconCollection = AmmonomiconController.ForceInstance.EncounterIconCollection;
         private static tk2dSprite baseSprite = PickupObjectDatabase.GetByEncounterName("singularity").GetComponent<tk2dSprite>();
 
         /// <summary>
@@ -32,51 +32,36 @@ namespace ItemAPI
         /// Returns an object with a tk2dSprite component with the 
         /// texture of an embedded resource
         /// </summary>
-		public static GameObject SpriteFromResource(string spriteName, GameObject obj = null, bool copyFromExisting = true)
+        public static GameObject SpriteFromResource(string spriteName, GameObject obj = null, bool v = false)
         {
-            string str = (!spriteName.EndsWith(".png")) ? ".png" : "";
-            string text = spriteName + str;
-            Texture2D textureFromResource = ResourceExtractor.GetTextureFromResource(text);
-            bool flag = textureFromResource == null;
-            bool flag2 = flag;
-            GameObject result;
-            if (flag2)
-            {
-                result = null;
-            }
-            else
-            {
-                result = SpriteBuilder.SpriteFromTexture(textureFromResource, text, obj, copyFromExisting);
-            }
-            return result;
+            string extension = !spriteName.EndsWith(".png") ? ".png" : "";
+            string resourcePath = spriteName + extension;
+
+            var texture = ResourceExtractor.GetTextureFromResource(resourcePath);
+            if (texture == null) return null;
+
+            return SpriteFromTexture(texture, resourcePath, obj);
         }
 
         /// <summary>
         /// Returns an object with a tk2dSprite component with the texture provided
         /// </summary>
-		public static GameObject SpriteFromTexture(Texture2D texture, string spriteName, GameObject obj = null, bool copyFromExisting = true)
+        public static GameObject SpriteFromTexture(Texture2D texture, string spriteName, GameObject obj = null)
         {
-            bool flag = obj == null;
-            bool flag2 = flag;
-            if (flag2)
+            if (obj == null)
             {
                 obj = new GameObject();
             }
-            tk2dSprite tk2dSprite;
-            if (copyFromExisting)
-            {
-                tk2dSprite = obj.AddComponent(SpriteBuilder.baseSprite);
-            }
-            else
-            {
-                tk2dSprite = obj.AddComponent<tk2dSprite>();
-            }
-            tk2dSpriteCollectionData tk2dSpriteCollectionData = SpriteBuilder.ConstructCollection(obj, texture.name.ToLower().Replace(" ", "_") + "_collection");
-            int newSpriteId = SpriteBuilder.AddSpriteToCollection(spriteName, tk2dSpriteCollectionData);
-            tk2dSpriteCollectionData.InitMaterialIds();
-            tk2dSprite.SetSprite(tk2dSpriteCollectionData, newSpriteId);
-            tk2dSprite.SortingOrder = 0;
-            obj.GetComponent<BraveBehaviour>().sprite = tk2dSprite;
+            tk2dSprite sprite;
+            sprite = obj.AddComponent<tk2dSprite>();
+
+            int id = AddSpriteToCollection(spriteName, itemCollection);
+            sprite.SetSprite(itemCollection, id);
+            sprite.SortingOrder = 0;
+            sprite.IsPerpendicular = true;
+
+            obj.GetComponent<BraveBehaviour>().sprite = sprite;
+
             return obj;
         }
 
@@ -148,12 +133,10 @@ namespace ItemAPI
                 }
             }
 
-            var clip = new tk2dSpriteAnimationClip()
-            {
-                name = clipName,
-                fps = 15,
-                wrapMode = wrapMode,
-            };
+            var clip = new tk2dSpriteAnimationClip();
+            clip.name = clipName;
+            clip.fps = 15;
+            clip.wrapMode = wrapMode;
             Array.Resize(ref animator.Library.clips, animator.Library.clips.Length + 1);
             animator.Library.clips[animator.Library.clips.Length - 1] = clip;
 
