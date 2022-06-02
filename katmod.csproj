@@ -1,0 +1,719 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{D6D7A494-722E-4763-959B-C2D6B6A42B01}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>katmod</RootNamespace>
+    <AssemblyName>katmod</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\Assembly-CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Assembly-CSharp.Base.mm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\Assembly-CSharp.Base.mm.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.RuntimeDetour">
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\MonoMod.RuntimeDetour.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoMod.Utils">
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\MonoMod.Utils.dll</HintPath>
+    </Reference>
+    <Reference Include="PlayMaker, Version=1.6.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\PlayMaker.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="UnityEngine.Base.mm">
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.Base.mm.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.CoreModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.CoreModule.Base.mm, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.CoreModule.Base.mm.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.ImageConversionModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.ImageConversionModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.JSONSerializeModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.JSONSerializeModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.TextRenderingModule.dll</HintPath>
+    </Reference>
+    <Reference Include="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\CustomItems\CustomItems\bin\Debug\UnityEngine.UI.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ItemAPI\BossBuilder.cs" />
+    <Compile Include="ItemAPI\CharacterHooks.cs" />
+    <Compile Include="ItemAPI\CompanionBuilder.cs" />
+    <Compile Include="ItemAPI\CustomSynergies.cs" />
+    <Compile Include="ItemAPI\EnemyBuilder.cs" />
+    <Compile Include="ItemAPI\EnemyGuidDatabase.cs" />
+    <Compile Include="ItemAPI\EnemyTools.cs" />
+    <Compile Include="ItemAPI\FakePrefab\FakePrefab.cs" />
+    <Compile Include="ItemAPI\FakePrefab\FakePrefabHooks.cs" />
+    <Compile Include="ItemAPI\Hooks.cs" />
+    <Compile Include="ItemAPI\ItemBuilder.cs" />
+    <Compile Include="ItemAPI\BoxOTools.cs" />
+    <Compile Include="ItemAPI\OverrideBehavior.cs" />
+    <Compile Include="ItemAPI\PlayerEventAdder.cs" />
+    <Compile Include="ItemAPI\SimpleCompanionBehaviours.cs" />
+    <Compile Include="ItemAPI\TextureStitcher.cs" />
+    <Compile Include="ItemAPI\Tools.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ItemAPI\ResourceExtractor.cs" />
+    <Compile Include="ItemAPI\SpriteBuilder.cs" />
+    <Compile Include="SaveAPI\AdvancedGameStats.cs" />
+    <Compile Include="SaveAPI\AdvancedGameStatsManager.cs" />
+    <Compile Include="SaveAPI\AdvancedMidGameSaveData.cs" />
+    <Compile Include="SaveAPI\BreachShopTool.cs" />
+    <Compile Include="SaveAPI\CustomDungeonPrerequisite.cs" />
+    <Compile Include="SaveAPI\Enums\Comparers\CustomDungeonFlagsComparer.cs" />
+    <Compile Include="SaveAPI\Enums\Comparers\CustomTrackedMaximumsComparer.cs" />
+    <Compile Include="SaveAPI\Enums\Comparers\CustomTrackedStatsComparer.cs" />
+    <Compile Include="SaveAPI\Enums\CustomCharacterSpecificGungeonFlags.cs" />
+    <Compile Include="SaveAPI\Enums\CustomDungeonFlags.cs" />
+    <Compile Include="SaveAPI\Enums\CustomTrackedMaximums.cs" />
+    <Compile Include="SaveAPI\Enums\CustomTrackedStats.cs" />
+    <Compile Include="SaveAPI\Examples\ExampleModule.cs" />
+    <Compile Include="SaveAPI\DaveAPIManager.cs" />
+    <Compile Include="SaveAPI\SaveTools.cs" />
+    <Compile Include="SaveAPI\SpecialPickupObject.cs" />
+    <Compile Include="SaveAPI\UnlockHookInators.cs" />
+    <Compile Include="Scripts\BrokenItems\TheLogInAtor.cs" />
+    <Compile Include="Scripts\Candies\ImprovedCandies.cs" />
+    <Compile Include="Scripts\Candies\PositiveEffects.cs" />
+    <Compile Include="Scripts\Guns\MaliciousRailcannon.cs" />
+    <Compile Include="Scripts\Guns\Melter.cs" />
+    <Compile Include="Scripts\Guns\NuclearShotgun.cs" />
+    <Compile Include="Scripts\Guns\Purity.cs" />
+    <Compile Include="Scripts\Guns\RescueRanger.cs" />
+    <Compile Include="Scripts\Guns\Superbug.cs" />
+    <Compile Include="Scripts\Guns\SweeperGun.cs" />
+    <Compile Include="Scripts\Jeremy.cs" />
+    <Compile Include="Scripts\BrokenItems\EnemyPrinter.cs" />
+    <Compile Include="Scripts\Candies\TrickOTreater.cs" />
+    <Compile Include="Scripts\ClassicCatSnack.cs" />
+    <Compile Include="Scripts\DecaySet\BlackSkull.cs" />
+    <Compile Include="Scripts\DecaySet\Randy.cs" />
+    <Compile Include="Scripts\Swarm\BlueExplosive.cs" />
+    <Compile Include="Scripts\Swarm\Drone.cs" />
+    <Compile Include="Scripts\Swarm\WhiteDamageUp.cs" />
+    <Compile Include="Scripts\Swarm\YVSwarmPickup.cs" />
+    <Compile Include="Scripts\Swarm\RedExplosive.cs" />
+    <Compile Include="Scripts\Swarm\SwarmSneak.cs" />
+    <Compile Include="Scripts\Swarm\WhiteExplosive.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\DamageReductionItem.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\GameActorUnweaveEffect.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\HitscanHelper.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\LandOfTheSynergies.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\NuclearPlayerController.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\NuclearAmmoPickup.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\SlowdownProjectile.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\SwarmPickup.cs" />
+    <Compile Include="Scripts\V3MiscItems\TwoOfHearts.cs" />
+    <Compile Include="Scripts\V3MiscItems\AmmoEnhancer.cs" />
+    <Compile Include="Scripts\V3MiscItems\BanditHat.cs" />
+    <Compile Include="Scripts\V3MiscItems\Bitey.cs" />
+    <Compile Include="Scripts\V3MiscItems\BlankDoubler.cs" />
+    <Compile Include="Scripts\V3MiscItems\BloodyDice.cs" />
+    <Compile Include="Scripts\V3MiscItems\BloodyLockpick.cs" />
+    <Compile Include="Scripts\V3MiscItems\BabyGoodRobot.cs" />
+    <Compile Include="Scripts\V3MiscItems\CaptainsBrooch.cs" />
+    <Compile Include="Scripts\V3MiscItems\CatsEye.cs" />
+    <Compile Include="Scripts\V3MiscItems\CatSnack.cs" />
+    <Compile Include="Scripts\V3MiscItems\CaveCarrot.cs" />
+    <Compile Include="Scripts\V3MiscItems\ChainOfBeing.cs" />
+    <Compile Include="Scripts\V3MiscItems\Charcoal.cs" />
+    <Compile Include="Scripts\V3MiscItems\CobaltCoin.cs" />
+    <Compile Include="Scripts\V3MiscItems\CodexUmbra.cs" />
+    <Compile Include="Scripts\V3MiscItems\Cookbook.cs" />
+    <Compile Include="Scripts\V3MiscItems\CursedCandle.cs" />
+    <Compile Include="Scripts\V3MiscItems\DeadRinger.cs" />
+    <Compile Include="Scripts\V3MiscItems\Depthmeter.cs" />
+    <Compile Include="Scripts\V3MiscItems\DoubleABattery.cs" />
+    <Compile Include="Scripts\V3MiscItems\EnderHelmet.cs" />
+    <Compile Include="Scripts\V3MiscItems\ExperimentalRocketLauncher.cs" />
+    <Compile Include="Scripts\V3MiscItems\FlameWisp.cs" />
+    <Compile Include="Scripts\V3MiscItems\GoldenBox.cs" />
+    <Compile Include="Scripts\V3MiscItems\DormantStabiliser.cs" />
+    <Compile Include="Scripts\V3MiscItems\GunPermit.cs" />
+    <Compile Include="Scripts\V3MiscItems\AbyssalShield.cs" />
+    <Compile Include="Scripts\V3MiscItems\IfritsHorn.cs" />
+    <Compile Include="Scripts\V3MiscItems\IncubusStartingActive.cs" />
+    <Compile Include="Scripts\V3MiscItems\IncubusStartingPassive.cs" />
+    <Compile Include="Scripts\V3MiscItems\JestersHat.cs" />
+    <Compile Include="Scripts\V3MiscItems\Kebab.cs" />
+    <Compile Include="Scripts\V3MiscItems\KeyDoubler.cs" />
+    <Compile Include="Scripts\V3MiscItems\HeartyKey.cs" />
+    <Compile Include="Scripts\V3MiscItems\LemonPig.cs" />
+    <Compile Include="Scripts\V3MiscItems\LittleDisciple.cs" />
+    <Compile Include="Scripts\V3MiscItems\MinerHelmet.cs" />
+    <Compile Include="Scripts\V3MiscItems\MyNameIsYoshikageKira.cs" />
+    <Compile Include="Scripts\V3MiscItems\MythrilBullets.cs" />
+    <Compile Include="Scripts\V3MiscItems\OnyxBracelet.cs" />
+    <Compile Include="Scripts\V3MiscItems\Overloader.cs" />
+    <Compile Include="Scripts\V3MiscItems\DeadlyKnife.cs" />
+    <Compile Include="Scripts\V3MiscItems\ParasiticFungus.cs" />
+    <Compile Include="Scripts\V3MiscItems\ParrotsFeather.cs" />
+    <Compile Include="Scripts\V3MiscItems\PrismaticLexicon.cs" />
+    <Compile Include="Scripts\V3MiscItems\QuartzCrystal.cs" />
+    <Compile Include="Scripts\V3MiscItems\RangeCrystal.cs" />
+    <Compile Include="Scripts\V3MiscItems\Restock.cs" />
+    <Compile Include="Scripts\V3MiscItems\RingOfFriendship.cs" />
+    <Compile Include="Scripts\V3MiscItems\RingOfWealth.cs" />
+    <Compile Include="Scripts\V3MiscItems\RoyalCapacitator.cs" />
+    <Compile Include="Scripts\V3MiscItems\SawbladeItem.cs" />
+    <Compile Include="Scripts\V3MiscItems\ScarecrowsHead.cs" />
+    <Compile Include="Scripts\V3MiscItems\Seashell.cs" />
+    <Compile Include="Scripts\V3MiscItems\Soulbauble.cs" />
+    <Compile Include="Scripts\V3MiscItems\SoulInator.cs" />
+    <Compile Include="Scripts\V3MiscItems\StarFruit.cs" />
+    <Compile Include="Scripts\V3MiscItems\Sushi.cs" />
+    <Compile Include="Scripts\V3MiscItems\BigBoom.cs" />
+    <Compile Include="Scripts\V3MiscItems\UnluckyKey.cs" />
+    <Compile Include="Scripts\V3MiscItems\Ushanka.cs" />
+    <Compile Include="Scripts\V3MiscItems\BlueAlbum.cs" />
+    <Compile Include="Scripts\V4MiscItems\Coil.cs" />
+    <Compile Include="Scripts\WarriorsSyringe.cs" />
+    <Compile Include="Scripts\Gasoline.cs" />
+    <Compile Include="Scripts\Guns\Ak_01.cs" />
+    <Compile Include="Scripts\Guns\BeeGun.cs" />
+    <Compile Include="Scripts\Guns\BloodyCannon.cs" />
+    <Compile Include="Scripts\Guns\RedAndWhite.cs" />
+    <Compile Include="Scripts\Guns\Shotstool.cs" />
+    <Compile Include="Scripts\Guns\RoyalShotgun.cs" />
+    <Compile Include="Scripts\Guns\WindStaff.cs" />
+    <Compile Include="Scripts\JunkSynthesizer.cs" />
+    <Compile Include="Scripts\MagmaticBlood.cs" />
+    <Compile Include="Scripts\MimicSkin.cs" />
+    <Compile Include="Scripts\Prismatism.cs" />
+    <Compile Include="Scripts\PrismaticSet\PrismaticGuonStone.cs" />
+    <Compile Include="Scripts\PrismaticSet\PrismaticSnail.cs" />
+    <Compile Include="Scripts\SaplingBullets.cs" />
+    <Compile Include="Scripts\SlightlyLargerBullets.cs" />
+    <Compile Include="Scripts\StraponRPG.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\ImprovedAfterImage.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\BoomerangEffect.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\GameActorWitherEffect.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\ParasiteDeathEffect.cs" />
+    <Compile Include="Scripts\UtilsAndStuff\ParasiteProjectile.cs" />
+    <Compile Include="Scripts\V2MiscItems\ToxicFungus.cs" />
+    <Compile Include="Scripts\V3MiscItems\BoomerangBullets.cs" />
+    <Compile Include="Scripts\V2MiscItems\Bravery.cs" />
+    <Compile Include="Scripts\V2MiscItems\ClockworkCog.cs" />
+    <Compile Include="Scripts\V2MiscItems\ColdAmmo.cs" />
+    <Compile Include="Scripts\Crowns\CrownOfBlood.cs" />
+    <Compile Include="Scripts\V2MiscItems\ElectricRounds.cs" />
+    <Compile Include="Scripts\V2MiscItems\EnchantedTome.cs" />
+    <Compile Include="Scripts\V2MiscItems\ExecutionShells.cs" />
+    <Compile Include="Scripts\V2MiscItems\BloodBullets.cs" />
+    <Compile Include="Scripts\V2MiscItems\GalacticChest.cs" />
+    <Compile Include="Scripts\V2MiscItems\GarbageBin.cs" />
+    <Compile Include="Scripts\V3MiscItems\CandyBag.cs" />
+    <Compile Include="Scripts\V3MiscItems\ClockworkEngine.cs" />
+    <Compile Include="Scripts\V3MiscItems\GhoulBullets.cs" />
+    <Compile Include="Scripts\V2MiscItems\HoodedShells.cs" />
+    <Compile Include="Scripts\V2MiscItems\HighPriestCloak.cs" />
+    <Compile Include="Scripts\V2MiscItems\BulletSynthesizer.cs" />
+    <Compile Include="Scripts\V2MiscItems\LuckyCoin.cs" />
+    <Compile Include="Scripts\V2MiscItems\LuckyHorseshoe.cs" />
+    <Compile Include="Scripts\V2MiscItems\MaidenPlating.cs" />
+    <Compile Include="Scripts\V2MiscItems\PetrifyingMirror.cs" />
+    <Compile Include="Scripts\V2MiscItems\PlagueBullets.cs" />
+    <Compile Include="Scripts\V2MiscItems\PurpleGuonStone.cs" />
+    <Compile Include="Scripts\V2MiscItems\RaidersAxe.cs" />
+    <Compile Include="Scripts\V3MiscItems\Smore.cs" />
+    <Compile Include="Scripts\V2MiscItems\StackOfCash.cs" />
+    <Compile Include="Scripts\DecaySet\StoneAmmolet.cs" />
+    <Compile Include="Scripts\DecaySet\StoneSword.cs" />
+    <Compile Include="Scripts\V2MiscItems\ThunderRounds.cs" />
+    <Compile Include="Scripts\V2MiscItems\ToxicHoneycomb.cs" />
+    <Compile Include="Scripts\V2MiscItems\BronzeKey.cs" />
+    <Compile Include="Scripts\V3MiscItems\OilyGreaves.cs" />
+    <Compile Include="Scripts\V3MiscItems\ShadyChest.cs" />
+    <Compile Include="Scripts\VultureFeather.cs" />
+    <Compile Include="Scripts\WyrmSet\WyrmBlood.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DecaySet\blackskull.png" />
+    <EmbeddedResource Include="Resources\DecaySet\skullguon.png" />
+    <EmbeddedResource Include="Resources\gasoline.png" />
+    <EmbeddedResource Include="Resources\johnblobbeththethird.png" />
+    <EmbeddedResource Include="Resources\seedbullet.png" />
+    <EmbeddedResource Include="Resources\slightlylargerthanusualbullets.png" />
+    <EmbeddedResource Include="Resources\vulturefeather.png" />
+    <EmbeddedResource Include="Resources\warriorsyringe.png" />
+    <EmbeddedResource Include="Resources\WyrmSet\spogrechamp.png" />
+    <EmbeddedResource Include="Resources\WyrmSet\wyrmspoision.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Candies\purplecandy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\stackofcash.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Candies\jackolantern.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\stickonrpg.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\petrifymirror.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\hoodedshells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\executionshells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\fishsnack.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\mimicskincape.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Candies\bluepop.png" />
+    <EmbeddedResource Include="Resources\Candies\redpop.png" />
+    <EmbeddedResource Include="Resources\Candies\cursepop.png" />
+    <EmbeddedResource Include="Resources\Candies\goldenpop.png" />
+    <EmbeddedResource Include="Resources\Candies\greenpop.png" />
+    <EmbeddedResource Include="Resources\V2MiscItems\enchantedbook.png" />
+    <EmbeddedResource Include="Resources\junksynthesizer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\yellowkey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\moltenblood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\rusticer2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shrines\gooptonshrine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shrines\gooptonicon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Rooms\GooptonShrineRoom.room" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Rooms\LowPriestShrineRoom.room" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shrines\lowpriestshrine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shrines\sign.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Rooms\ShovelTime.room" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shrines\lowpriesticon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Shrines\hollowshrine.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\luckycoin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Candies\heartpop.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\purpleguonstone.png" />
+    <EmbeddedResource Include="Resources\V2MiscItems\purpleguonstoneorbital.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\fungus.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\coolammo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\garbage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\horseshoe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\PrismaticSet\prismaticguonorbital.png" />
+    <EmbeddedResource Include="Resources\PrismaticSet\prismaticguonstone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\shmore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\maidenplating.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\plaguebullets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\crownofblood.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\lowpriestcape.png" />
+    <EmbeddedResource Include="Resources\V2MiscItems\raidersaxe.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\MagicChest\ChestItem.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\medalofbravery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\spinningbullets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\electricshells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\thundershells.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DecaySet\stonesword.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DecaySet\stoneammolet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\greencomb.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveLeft\babyrobot_original_run_left_001.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveLeft\babyrobot_original_run_left_002.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveLeft\babyrobot_original_run_left_003.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveLeft\babyrobot_original_run_left_004.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveLeft\babyrobot_original_run_left_005.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveLeft\babyrobot_original_run_left_006.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveRight\babyrobot_original_run_right_001.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveRight\babyrobot_original_run_right_002.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveRight\babyrobot_original_run_right_003.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveRight\babyrobot_original_run_right_004.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveRight\babyrobot_original_run_right_005.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\MoveRight\babyrobot_original_run_right_006.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\DecaySet\randy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V2MiscItems\bleedingbullets.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bulletrang.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\galoshes.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\smallerclockwork.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\ghoullet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bagofcandy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\lensmakerglasses.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\minerhelmet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\shadowkey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\shadyblank.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\gunslinger.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\cursedcandle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\godrounds.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bitez.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\depthometer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Dice\bloodydie.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bettercodex.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\lighter.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\starfruit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\glass.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\batterybruv.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\reptileknife.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\heartykey.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\focuscrystal.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\sushi.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\shadeammo.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bandit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Swarm\blacksplode.png" />
+    <EmbeddedResource Include="Resources\Swarm\bluesplode.png" />
+    <EmbeddedResource Include="Resources\Swarm\redsplode.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bigboom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\goldchest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\cobaltcoin.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Swarm\sneakpower.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Swarm\beeswarm.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Swarm\music.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Swarm\blackup.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\snoball.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\bloodylockpick.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\shmore.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\ringofhate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\quartz.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\deadringer.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\royalcapacitatorui.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\royalcapactior.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_001.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_002.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_003.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_004.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_005.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_006.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_007.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\Lightning\ligthning_008.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\spider.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\parrotsfeather.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\featherui.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\soulstone.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\firewisp.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\whatthefuck.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\catseye.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\gunpermit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\cavecarrot.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\dormantStabiliser.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\stabiliserBunny.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\weezer2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\ifyouwanttodestroymysweater.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Candies\monstercandy.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\enderhelmet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Dice\bloodyd12.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Dice\bloodyd12butcooler.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\WyrmSet\poison2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\experimentalrocketlauncher.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\AAbattery.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\scarecrow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\onyxbracelet.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\lemonpig.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\ifritshorn.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\captainsbrooch.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\jarfullofsouls.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\goldendisc.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\sawblade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleLeft\babyrobot_original_idle_left_001.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleLeft\babyrobot_original_idle_left_002.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleLeft\babyrobot_original_idle_left_003.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleLeft\babyrobot_original_idle_left_004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_001.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_002.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_003.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_004.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_005.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_006.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_007.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_008.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\AttackRight\babyrobot_original_attack_right_009.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleRight\babyrobot_original_idle_right_001.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleRight\babyrobot_original_idle_right_002.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleRight\babyrobot_original_idle_right_003.png" />
+    <EmbeddedResource Include="Resources\Companions\BabyRobots\original\IdleRight\babyrobot_original_idle_right_004.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\abyssalknife.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\ammocrate.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\capacitor.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\epicplaceholdersprite.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\cursedcandle2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\Candies\happypilldude.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\2ofhearts.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\parasiticmushroom.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\abyssalcrest.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\V3MiscItems\calamityboxempty.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\calamityboxfull.png" />
+    <EmbeddedResource Include="Resources\V3MiscItems\calamityboxhalf.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+</Project>

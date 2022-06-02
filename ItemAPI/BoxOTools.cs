@@ -5,6 +5,7 @@ using UnityEngine;
 using katmod;
 using static PickupObject;
 using System.IO;
+using Dungeonator;
 
 namespace ItemAPI
 {
@@ -135,7 +136,7 @@ namespace ItemAPI
             }
         }
 
-        public static Projectile HandleProjectile(this PlayerController player, float speed, float damage, int ProjectileID, bool charged, bool processes = false, float overrideAim = 0, float range = 0)
+        public static Projectile HandleProjectile(this PlayerController player, float speed, float damage, int ProjectileID, bool charged, Vector2 overridePosition, bool processes = false, float overrideAim = 0, float range = 0)
         {
             Projectile projectile2;
             if (!charged)
@@ -145,7 +146,7 @@ namespace ItemAPI
             {
                 projectile2 = ((Gun)ETGMod.Databases.Items[ProjectileID]).DefaultModule.chargeProjectiles[0].Projectile;
             }
-            GameObject gameObject = SpawnManager.SpawnProjectile(projectile2.gameObject, (player.CurrentGun == null) ? player.specRigidbody.UnitCenter : (Vector2)player.CurrentGun.barrelOffset.position, Quaternion.Euler(0f, 0f, (player.CurrentGun == null || overrideAim != 0) ? overrideAim : player.CurrentGun.CurrentAngle), true);
+            GameObject gameObject = SpawnManager.SpawnProjectile(projectile2.gameObject, overridePosition != Vector2.zero ? overridePosition : (player.CurrentGun == null) ? player.specRigidbody.UnitCenter : (Vector2)player.CurrentGun.barrelOffset.position, Quaternion.Euler(0f, 0f, (player.CurrentGun == null || overrideAim != 0) ? overrideAim : player.CurrentGun.CurrentAngle), true);
             Projectile component = gameObject.GetComponent<Projectile>();
             bool componentless = component != null;
             if (componentless)
@@ -162,40 +163,6 @@ namespace ItemAPI
                 {
                     player.DoPostProcessProjectile(component);
                 }
-            }
-            return component;
-        }
-
-        public static Projectile ShootProjectileFromSpecrigidbody(this SpeculativeRigidbody position, PlayerController player, float speed, float damage, int ProjectileID, float aim, float range)
-        {
-            Projectile projectile2 = ((Gun)ETGMod.Databases.Items[ProjectileID]).DefaultModule.projectiles[0];
-            GameObject gameObject = SpawnManager.SpawnProjectile(projectile2.gameObject, position.UnitCenter, Quaternion.Euler(0f, 0f, aim), true);
-            Projectile component = gameObject.GetComponent<Projectile>();
-            bool componentless = component != null;
-            if (componentless)
-            {
-                component.Owner = player;
-                component.Shooter = player.specRigidbody;
-                component.baseData.speed = speed;
-                component.baseData.damage = damage;
-                component.baseData.range = range;
-                player.DoPostProcessProjectile(component);
-            }
-            return component;
-        }
-        public static Projectile ShootProjectileFromSprite(this tk2dBaseSprite position, PlayerController player, float speed, float damage, int ProjectileID, float aim)
-        {
-            Projectile projectile2 = ((Gun)ETGMod.Databases.Items[ProjectileID]).DefaultModule.projectiles[0];
-            GameObject gameObject = SpawnManager.SpawnProjectile(projectile2.gameObject, position.WorldCenter, Quaternion.Euler(0f, 0f, aim), true);
-            Projectile component = gameObject.GetComponent<Projectile>();
-            bool componentless = component != null;
-            if (componentless)
-            {
-                component.Owner = player;
-                component.Shooter = player.specRigidbody;
-                component.baseData.speed = speed;
-                component.baseData.damage = damage;
-                player.DoPostProcessProjectile(component);
             }
             return component;
         }
@@ -266,6 +233,7 @@ namespace ItemAPI
             }
             def.MakeOffset(new Vector2(xOffset, yOffset), changesCollider);
         }
+
 
         public static void MakeOffset(this tk2dSpriteDefinition def, Vector2 offset, bool changesCollider = false)
         {
@@ -531,15 +499,6 @@ namespace ItemAPI
             result.colliderVertices = colliderVertices.ToArray();
             return result;
         }
-
-        public static HomingModifier AddHoming(this Projectile projecto, float radius = 360, float angle = 270)
-        {
-            HomingModifier h = projecto.gameObject.AddComponent<HomingModifier>();
-            h.HomingRadius = radius;
-            h.AngularVelocity = angle;
-            return h;
-        }
-
         /*/// <summary>
 		/// Increases damage, makes it white, does the projectile stuff
 		/// </summary>
@@ -695,6 +654,15 @@ namespace ItemAPI
         }
     }
 
+    class LabelablePlayerItem : PlayerItem
+    {
+        public void SetLabel(string label)
+        {
+            currentLabel = label;
+        }
+        public string currentLabel;
+    }
+
     public static class UniqueStatModifiers
     {
         public static void AddStat(this PassiveItem item, PlayerStats.StatType statType, float amount, StatModifier.ModifyMethod method = StatModifier.ModifyMethod.ADDITIVE)
@@ -740,6 +708,27 @@ namespace ItemAPI
                 }
             }
             item.passiveStatModifiers = list.ToArray();
+        }
+
+        public static void BetterDoToEnemiesInRadius(this RoomHandler room, Vector2 position, float radius, Action<AIActor> action)
+        {
+            foreach (AIActor actor in room.GetActiveEnemies(RoomHandler.ActiveEnemyType.All))
+            {
+                if (actor && actor.healthHaver && actor.specRigidbody && actor.IsNormalEnemy)
+                {
+                    PixelCollider hitboxPixelCollider = actor.specRigidbody.HitboxPixelCollider;
+                    if (hitboxPixelCollider != null)
+                    {
+                        Vector2 vector = BraveMathCollege.ClosestPointOnRectangle(position, hitboxPixelCollider.UnitBottomLeft, hitboxPixelCollider.UnitDimensions);
+                        float num = Vector2.Distance(actor.specRigidbody.UnitCenter, position);
+                        float num2 = Vector2.Distance(vector, actor.specRigidbody.UnitCenter);
+                        if (num < num2 + radius)
+                        {
+                            action(actor);
+                        }
+                    }
+                }
+            }
         }
     }
 
