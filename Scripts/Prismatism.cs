@@ -167,7 +167,7 @@ namespace katmod
 
                 AbyssalShield.Init();
 
-                Coil.Init();
+                //Coil.Init();
 
                 //Restock.Init();
                 //ChainOfBeing.Init();
